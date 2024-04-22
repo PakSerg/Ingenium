@@ -15,7 +15,7 @@ class User(AbstractUser):
         SAGE = 'SAG', 'Мудрец' 
         LEGEND = 'LEG', 'Легенда'
 
-    email = models.CharField(max_length=30, default='', unique=True) 
+    email = models.EmailField(max_length=30, default='', unique=True) 
     grade = models.CharField(max_length=3, choices=Grade.choices, default=Grade.BEGINNER) 
     given_answers_count = models.IntegerField(default=0) 
 
