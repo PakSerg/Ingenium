@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth  import login, authenticate, logout
 from django.views import View 
-from django.http import HttpRequest
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
 from .forms import CreateUserForm, LoginForm
 from .services import AuthService
 
@@ -39,31 +40,21 @@ class Login(View):
     template_name = 'auth/login.html' 
 
     def get(self, request):
-        context = {
-            'form': LoginForm(),
-        } 
-        return render(request, self.template_name, context) 
+        return render(request, self.template_name, { 'form': LoginForm() }) 
     
     def post(self, request): 
         form = LoginForm(request.POST) 
 
         if form.is_valid():
             cd = form.cleaned_data 
-            email = cd['email'] 
-            password = cd['password']
-            
-            user = authenticate(request, email=email, password=password)
-
+            user = authenticate(request, email=cd['email'], password=cd['password'])
             if user:
                 login(request, user)
                 print('Залогинились')
                 return redirect('users:test')  
+
             
-        form.add_error(None, 'Неверный адрес электронной почты или пароль')
-            
-        context = {
-            'form': form
-        }
+        context = { 'form': form, 'error': 'Неверный логин или пароль' }
         return render(request, self.template_name, context)
             
 
