@@ -21,13 +21,10 @@ class CreateUserForm(forms.ModelForm):
 
     def clean_password2(self):  
         cd = self.cleaned_data
-
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Пароли не совпадают')
-        
         if len(cd['password2']) < 8:
             raise forms.ValidationError('Пароль слишком короткий')
-        
         return cd['password2'] 
     
     def clean_email(self):
@@ -52,3 +49,36 @@ class LoginForm(forms.Form):
         if len(password) < 8:
             raise forms.ValidationError('Пароль слишком короткий') 
         return password
+    
+
+class ProfileEditForm1(forms.ModelForm): 
+
+    class Meta:
+        model = User 
+        fields = ['username', 'email', 'image'] 
+        labels = {
+            'username': 'Имя', 
+            'email': 'Электронная почта',
+            'image': 'Аватар'
+        }
+        help_texts = {
+            'username': 'Не более 30 символов'
+        } 
+        
+    def clean_username(self): 
+        username = self.cleaned_data['username'] 
+        if AuthService.another_user_has_same_username(self.instance):
+            raise forms.ValidationError('Это имя занято') 
+        return username 
+    
+    def clean_email(self):
+        email = self.cleaned_data['email'] 
+        if AuthService.another_user_has_same_email(self.instance):
+            raise forms.ValidationError('Эта электронная почта занята')
+        return email 
+
+
+class ProfileEditForm(forms.Form): 
+    username = forms.CharField(label='Имя', help_text='Не более 30 символов') 
+    email = forms.EmailField(label='Электронная почта', widget=forms.EmailInput)
+    image = forms.ImageField(label='Аватар', required=False) 

@@ -20,7 +20,7 @@
         }
         main {
             flex: 1;
-            padding-top: 70px;
+            padding-top: 90px;
         }
     </style>
 </head>
@@ -55,7 +55,7 @@
                             {{ request.user.email }}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Мой профиль</a></li>
+                            <li><a class="dropdown-item" href="{% url 'users:profile' %}">Мой профиль</a></li>
                             <li><a class="dropdown-item" href="{% url 'users:login' %}">Сменить аккаунт</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{% url 'users:logout' %}">Выйти из аккаунта</a></li>

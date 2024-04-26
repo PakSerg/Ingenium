@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Мой профиль
+{% endblock title %}
+
+
+{% block content %}
+<div class="container">
+    <h2>Мой профиль</h3>
+
+    <div class="mb-3">
+        <p>Дано ответов: {{ request.user.given_answers_count }}</p> 
+    </div>
+    <div class="mb-3">
+        <p>Уровень: {{ request.user.get_grade_display }}</p>
+    </div>
+    <img src="{{ request.user.image.url }}" alt="Профильное изображение" style="max-width: 200px; max-height: 200px;">
+    <form method="post" action="{% url 'users:profile' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3"  style="width: 25rem;">
+            {{ profile_form.username | as_crispy_field }}
+        </div>
+        <div class="mb-3" style="width: 25rem;">
+            {{ profile_form.email | as_crispy_field }}
+        </div>
+        <div class="mb-3">
+            {{ profile_form.image | as_crispy_field }}
+        </div>
+        <button type="submit" class="btn btn-primary small-margin-top">Сохранить</button>
+    </form>
+    
+  </div>
+{% endblock content %}

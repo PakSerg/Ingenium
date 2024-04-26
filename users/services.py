@@ -1,5 +1,5 @@
 from .models import User 
-from django.contrib.auth  import login, authenticate
+from django.contrib.auth  import login, authenticate, get_user
 
 
 class AuthService:
@@ -15,11 +15,14 @@ class AuthService:
         new_user.set_password(password) 
         new_user.save() 
         return new_user
+    
+    def another_user_has_same_username(current_user: User) -> bool: 
+        return User.objects.filter(username=current_user.username).exclude(pk=current_user.pk).exists()
+    
+    def another_user_has_same_email(current_user: User) -> bool: 
+        return User.objects.filter(email=current_user.email).exclude(pk=current_user.pk).exists()
+    
+    def update_username(new_username: str, current_user: User) -> None: 
+        current_user.username = new_username 
+        current_user.save()
 
-    # def authenticate_user(email: str, password: str) -> User: #TODO Метод не работает, т.к. в функции не передаётся request
-    #     user = authenticate(email=email, password=password)   #TODO Или надо будет придумать, как обойтись без этого, или переписать с объектом request
-    #     if user is not None:
-    #         login(user)
-    #         return user
-    #     else:
-    #         return None
