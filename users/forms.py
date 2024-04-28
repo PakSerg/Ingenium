@@ -55,6 +55,7 @@ class ProfileEditForm(forms.Form):
     username = forms.CharField(label='Имя', help_text='Не более 30 символов') 
     email = forms.EmailField(label='Электронная почта', widget=forms.EmailInput)
     image = forms.ImageField(label='Аватар', required=False) 
+    description = forms.CharField(label='Немного о себе', required=False, )
 
     def __init__(self, *args, **kwargs):
         self.user: User = kwargs.pop('user', None)
@@ -63,6 +64,7 @@ class ProfileEditForm(forms.Form):
         initial['username'] = self.user.username
         initial['email'] = self.user.email
         initial['image'] = self.user.image
+        initial['description'] = self.user.description
 
         kwargs['initial'] = initial
         super(ProfileEditForm, self).__init__(*args, **kwargs)

@@ -1,5 +1,4 @@
 from .models import User 
-from django.contrib.auth  import login, authenticate, get_user
 
 
 class AuthService:

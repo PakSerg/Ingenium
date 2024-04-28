@@ -9,6 +9,7 @@ from .forms import CreateUserForm, LoginForm, ProfileEditForm
 from .services import AuthService
 from .models import User 
 from django.utils.decorators import method_decorator
+from django.db import transaction
     
 
 class RegisterView(FormView):
@@ -16,6 +17,7 @@ class RegisterView(FormView):
     form_class = CreateUserForm 
     success_url = reverse_lazy('users:profile')
 
+    @transaction.atomic
     def form_valid(self, form):
         cd = form.cleaned_data 
 
@@ -33,6 +35,7 @@ class LoginView(FormView):
     form_class = LoginForm
     success_url = reverse_lazy('users:profile')
 
+    @transaction.atomic
     def form_valid(self, form: LoginForm):
         cd = form.cleaned_data 
         user = authenticate(self.request, email=cd['email'], password=cd['password'])
@@ -49,36 +52,6 @@ class LogoutView(View):
     def get(self, request):
         logout(request) 
         return redirect('users:login')
-
-
-@method_decorator(login_required, name='dispatch')
-class ProfileEditView1(View):
-    template_name = 'users/profile.html' 
-    success_url = reverse_lazy('users:profile')
-
-    def get(self, request):
-        user = request.user
-        profile_form = ProfileEditForm(initial={
-            'username': user.username, 
-            'email': user.email, 
-            'image': user.image}, user=request.user)    
-        return render(request, self.template_name, {'profile_form': profile_form}) 
-    
-    def post(self, request):
-        user: User = request.user
-        form = ProfileEditForm(request.POST, request.FILES, user=request.user) 
-        if form.is_valid():
-            cd = form.cleaned_data
-            user.username = cd['username']
-            user.email = cd['email']
-            
-            if 'image' in request.FILES:
-                image_data = request.FILES['image']
-                user.image = image_data
-
-            user.save()
-            return redirect(self.success_url) 
-        return render(request, self.template_name, {'profile_form': form}) 
     
 
 @method_decorator(login_required, name='dispatch')
@@ -92,11 +65,15 @@ class ProfileEditView(FormView):
         kwargs['user'] = self.request.user
         return kwargs
 
-    def form_valid(self, form): 
+    @transaction.atomic
+    def form_valid(self, form: ProfileEditForm): 
         user: User = self.request.user
         cd = form.cleaned_data
         user.username = cd['username']
         user.email = cd['email']
+
+        if cd.get('description'):
+            user.description = cd['description']
         
         if 'image' in self.request.FILES:
             image_data = self.request.FILES['image']

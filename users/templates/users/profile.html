@@ -7,31 +7,57 @@
 
 
 {% block content %}
-<div class="container">
-    <h2>Мой профиль</h3>
+  <div class="container">
+    <div class="row justify-content-start">
 
-    <div class="mb-3">
-        <p>Дано ответов: {{ request.user.given_answers_count }}</p> 
+      <div class="col-4 align-self-start">
+
+          <div>
+
+              <div class="mb-3">
+                  <p class="h2">Дано ответов: {{ request.user.given_answers_count }}</p> 
+              </div>
+
+              <div class="mb-3">
+                  <p class="h2">Уровень: {{ request.user.get_grade_display }}</p>
+              </div>
+
+              <div class="mb-3">
+                  <img src="{{ request.user.image.url }}" alt="Ваша аватарка" class="img-thumbnail">
+              </div>
+
+          </div>
+          
+
     </div>
-    <div class="mb-3">
-        <p>Уровень: {{ request.user.get_grade_display }}</p>
+    <div class="col-5 align-self-center">
+
+          <div>
+            <form method="post" action="{% url 'users:profile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    {{ form.username | as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.email | as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.description | as_crispy_field }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.image | as_crispy_field }}
+                </div>
+                <button type="submit" class="btn btn-primary small-margin-top">Сохранить</button>
+
+              </form>
+          </div>
+        
+
     </div>
-    <div class="mb-3">
-        <img src="{{ request.user.image.url }}" alt="Профильное изображение" style="max-width: 200px; max-height: 200px;">
-    </div>
-    <form method="post" action="{% url 'users:profile' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="mb-3"  style="width: 25rem;">
-            {{ form.username | as_crispy_field }}
-        </div>
-        <div class="mb-3" style="width: 25rem;">
-            {{ form.email | as_crispy_field }}
-        </div>
-        <div class="mb-3">
-            {{ form.image | as_crispy_field }}
-        </div>
-        <button type="submit" class="btn btn-primary small-margin-top">Сохранить</button>
-    </form>
-    
-  </div>
+</div>
+</div>
 {% endblock content %}
