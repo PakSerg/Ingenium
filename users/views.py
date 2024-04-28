@@ -103,5 +103,4 @@ class ProfileEditView(FormView):
             user.image = image_data
 
         user.save()
-        
         return super().form_valid(form)

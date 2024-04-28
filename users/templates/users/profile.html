@@ -16,7 +16,9 @@
     <div class="mb-3">
         <p>Уровень: {{ request.user.get_grade_display }}</p>
     </div>
-    <img src="{{ request.user.image.url }}" alt="Профильное изображение" style="max-width: 200px; max-height: 200px;">
+    <div class="mb-3">
+        <img src="{{ request.user.image.url }}" alt="Профильное изображение" style="max-width: 200px; max-height: 200px;">
+    </div>
     <form method="post" action="{% url 'users:profile' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-3"  style="width: 25rem;">

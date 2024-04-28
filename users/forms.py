@@ -57,7 +57,7 @@ class ProfileEditForm(forms.Form):
     image = forms.ImageField(label='Аватар', required=False) 
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
+        self.user: User = kwargs.pop('user', None)
         initial = kwargs.pop('initial', {})
 
         initial['username'] = self.user.username
@@ -68,12 +68,15 @@ class ProfileEditForm(forms.Form):
         super(ProfileEditForm, self).__init__(*args, **kwargs)
 
     def clean_username(self): 
-        if AuthService.another_user_has_same_email(self.user):
-            raise forms.ValidationError('Эта электронная почта уже занята') 
-        return self.cleaned_data['username'] 
+        new_username = self.cleaned_data['username']
+        self.user.username = new_username
+        if AuthService.another_user_has_same_username(self.user):
+            raise forms.ValidationError('Это имя уже занято') 
+        return new_username
     
     def clean_email(self): 
+        new_email = self.cleaned_data['email']
         if AuthService.another_user_has_same_email(self.user):
             raise forms.ValidationError('Эта электронная почта уже занята') 
-        return self.cleaned_data['email'] 
+        return new_email
     
