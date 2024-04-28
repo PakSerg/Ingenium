@@ -49,36 +49,31 @@ class LoginForm(forms.Form):
         if len(password) < 8:
             raise forms.ValidationError('Пароль слишком короткий') 
         return password
-    
-
-class ProfileEditForm1(forms.ModelForm): 
-
-    class Meta:
-        model = User 
-        fields = ['username', 'email', 'image'] 
-        labels = {
-            'username': 'Имя', 
-            'email': 'Электронная почта',
-            'image': 'Аватар'
-        }
-        help_texts = {
-            'username': 'Не более 30 символов'
-        } 
-        
-    def clean_username(self): 
-        username = self.cleaned_data['username'] 
-        if AuthService.another_user_has_same_username(self.instance):
-            raise forms.ValidationError('Это имя занято') 
-        return username 
-    
-    def clean_email(self):
-        email = self.cleaned_data['email'] 
-        if AuthService.another_user_has_same_email(self.instance):
-            raise forms.ValidationError('Эта электронная почта занята')
-        return email 
 
 
 class ProfileEditForm(forms.Form): 
     username = forms.CharField(label='Имя', help_text='Не более 30 символов') 
     email = forms.EmailField(label='Электронная почта', widget=forms.EmailInput)
     image = forms.ImageField(label='Аватар', required=False) 
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        initial = kwargs.pop('initial', {})
+
+        initial['username'] = self.user.username
+        initial['email'] = self.user.email
+        initial['image'] = self.user.image
+
+        kwargs['initial'] = initial
+        super(ProfileEditForm, self).__init__(*args, **kwargs)
+
+    def clean_username(self): 
+        if AuthService.another_user_has_same_email(self.user):
+            raise forms.ValidationError('Эта электронная почта уже занята') 
+        return self.cleaned_data['username'] 
+    
+    def clean_email(self): 
+        if AuthService.another_user_has_same_email(self.user):
+            raise forms.ValidationError('Эта электронная почта уже занята') 
+        return self.cleaned_data['email'] 
+    

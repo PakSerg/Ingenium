@@ -20,13 +20,13 @@
     <form method="post" action="{% url 'users:profile' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-3"  style="width: 25rem;">
-            {{ profile_form.username | as_crispy_field }}
+            {{ form.username | as_crispy_field }}
         </div>
         <div class="mb-3" style="width: 25rem;">
-            {{ profile_form.email | as_crispy_field }}
+            {{ form.email | as_crispy_field }}
         </div>
         <div class="mb-3">
-            {{ profile_form.image | as_crispy_field }}
+            {{ form.image | as_crispy_field }}
         </div>
         <button type="submit" class="btn btn-primary small-margin-top">Сохранить</button>
     </form>

@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth  import login, authenticate, logout, get_user
 from django.contrib.auth.decorators import login_required
@@ -51,7 +52,7 @@ class LogoutView(View):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProfileEditView(View):
+class ProfileEditView1(View):
     template_name = 'users/profile.html' 
     success_url = reverse_lazy('users:profile')
 
@@ -60,29 +61,47 @@ class ProfileEditView(View):
         profile_form = ProfileEditForm(initial={
             'username': user.username, 
             'email': user.email, 
-            'image': user.image})    
+            'image': user.image}, user=request.user)    
         return render(request, self.template_name, {'profile_form': profile_form}) 
     
     def post(self, request):
-        user = request.user
-
-        form = ProfileEditForm(request.POST, request.FILES) 
+        user: User = request.user
+        form = ProfileEditForm(request.POST, request.FILES, user=request.user) 
         if form.is_valid():
             cd = form.cleaned_data
             user.username = cd['username']
             user.email = cd['email']
-            user.image = cd['image']
             
             if 'image' in request.FILES:
                 image_data = request.FILES['image']
                 user.image = image_data
 
-            if AuthService.another_user_has_same_email(user):
-                form.add_error('email', 'Эта электронная почта уже занята')
-            elif AuthService.another_user_has_same_username(user): 
-                form.add_error('username', 'Это имя уже занято') 
-            else: 
-                user.save()
-                return redirect(self.success_url) 
+            user.save()
+            return redirect(self.success_url) 
         return render(request, self.template_name, {'profile_form': form}) 
+    
 
+@method_decorator(login_required, name='dispatch')
+class ProfileEditView(FormView):
+    template_name = 'users/profile.html' 
+    success_url = reverse_lazy('users:profile')
+    form_class = ProfileEditForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form): 
+        user: User = self.request.user
+        cd = form.cleaned_data
+        user.username = cd['username']
+        user.email = cd['email']
+        
+        if 'image' in self.request.FILES:
+            image_data = self.request.FILES['image']
+            user.image = image_data
+
+        user.save()
+        
+        return super().form_valid(form)
