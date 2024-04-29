@@ -20,7 +20,6 @@ class AuthService:
     
     @staticmethod
     def another_user_has_same_username(current_user: User) -> bool: 
-        print(f'{current_user=}')
         return User.objects.filter(username=current_user.username).exclude(pk=current_user.pk).exists()
     
     @staticmethod

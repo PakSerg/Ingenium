@@ -55,7 +55,7 @@ class ProfileEditForm(forms.Form):
     username = forms.CharField(label='Имя', help_text='Не более 30 символов') 
     email = forms.EmailField(label='Электронная почта', widget=forms.EmailInput)
     image = forms.ImageField(label='Аватар', required=False) 
-    description = forms.CharField(label='Немного о себе', required=False, )
+    description = forms.CharField(label='Немного о себе', required=False)
 
     def __init__(self, *args, **kwargs):
         self.user: User = kwargs.pop('user', None)

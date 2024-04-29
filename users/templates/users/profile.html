@@ -10,22 +10,21 @@
   <div class="container">
     <div class="row justify-content-start">
 
-      <div class="col-4 align-self-start">
+      <div class="col-3 align-self-start">
 
           <div>
 
               <div class="mb-3">
-                  <p class="h2">Дано ответов: {{ request.user.given_answers_count }}</p> 
+                  <p class="h4">Дано ответов: {{ request.user.given_answers_count }}</p> 
               </div>
 
               <div class="mb-3">
-                  <p class="h2">Уровень: {{ request.user.get_grade_display }}</p>
+                  <p class="h4">Уровень: {{ request.user.get_grade_display }}</p>
               </div>
 
               <div class="mb-3">
                   <img src="{{ request.user.image.url }}" alt="Ваша аватарка" class="img-thumbnail">
               </div>
-
           </div>
           
 
