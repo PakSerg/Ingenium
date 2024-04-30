@@ -15,11 +15,11 @@
           <div>
 
               <div class="mb-3">
-                  <p class="h4">Дано ответов: {{ request.user.given_answers_count }}</p> 
+                  <p class="h5">Дано ответов: {{ request.user.given_answers_count }}</p> 
               </div>
 
               <div class="mb-3">
-                  <p class="h4">Уровень: {{ request.user.get_grade_display }}</p>
+                  <p class="h5">Уровень: {{ request.user.get_grade_display }}</p>
               </div>
 
               <div class="mb-3">
@@ -29,7 +29,7 @@
           
 
     </div>
-    <div class="col-5 align-self-center">
+    <div class="col-6 align-self-center">
 
           <div>
             <form method="post" action="{% url 'users:profile' %}" enctype="multipart/form-data">

@@ -1,15 +1,14 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth  import login, authenticate, logout, get_user
+from django.shortcuts import redirect
+from django.contrib.auth  import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.views import View 
 from django.views.generic.edit import FormView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.utils.decorators import method_decorator
+from django.db import transaction
 from .forms import CreateUserForm, LoginForm, ProfileEditForm
 from .services import AuthService
 from .models import User 
-from django.utils.decorators import method_decorator
-from django.db import transaction
     
 
 class RegisterView(FormView):
@@ -80,4 +79,9 @@ class ProfileEditView(FormView):
             user.image = image_data
 
         user.save()
+
+
         return super().form_valid(form)
+    
+
+
