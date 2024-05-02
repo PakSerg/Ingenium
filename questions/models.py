@@ -38,8 +38,13 @@ class Tag(models.Model):
 
 
 class Question(models.Model): 
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-	                         related_name='questions') 
+
+    class Status(models.TextChoices): 
+        DRAFT = 'DF', 'Черновик'
+        PUBLISHED = 'PB', 'Опубликован'
+        BANNED = 'BN', 'В бане'
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions') 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1, 
                                  related_name='categories')
     title = models.CharField(max_length=120, blank=False, null=False) 
@@ -48,6 +53,20 @@ class Question(models.Model):
     votes = models.IntegerField(default=0, null=False)
     slug = models.SlugField(null=False, default="", unique=True)
     tags = models.ManyToManyField(Tag, related_name='questions')
+    status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
+
+    objects = models.Manager()
+
+    class PublishedManager(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(status=Question.Status.PUBLISHED) 
+    published = PublishedManager()
+        
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['-created_at'])
+        ]
 
     def save(self, *args, **kwargs):
         self.slug = slugify(unidecode(self.title))

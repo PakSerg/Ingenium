@@ -9,7 +9,7 @@ from django.db import transaction
 from .forms import CreateUserForm, LoginForm, ProfileEditForm
 from .services import AuthService
 from .models import User 
-    
+     
 
 class RegisterView(FormView):
     template_name = 'users/auth/register.html' 

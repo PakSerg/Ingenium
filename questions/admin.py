@@ -4,10 +4,11 @@ from .models import Question, Category, Tag
 
 @admin.register(Question) 
 class QuestionAdmin(admin.ModelAdmin): 
-    list_display = ['title', 'content', 'category', 'user', 'created_at', 'votes']
+    list_display = ['title', 'content', 'category', 'user', 'created_at', 'votes', 'status']
     list_filter = ['created_at'] 
     prepopulated_fields = {'slug': ('title',)}
     ordering = ['created_at', 'votes']
+    raw_id_fields = ['tags']
 
 
 @admin.register(Category) 
