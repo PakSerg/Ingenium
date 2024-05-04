@@ -1,54 +1,53 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load questions_tags %}
 
 {% block title %}
-    Все вопросы
+    Ingenium
 {% endblock title %}
 
 {% block content %}
-<div class="container">
-    <div class="container">
-      	
-		<div class="row align-items-start">
-            <div class="col-12 col-md-2 d-flex flex-column align-items-start">
-                {% for category in categories %}
-                    <div class="mb-2">
-                        <a href="{{ category.get_absolute_url }}" class="link-dark link-offset-2 link-offset-2-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
-                            <p>{{ category.title }}</p>
-                        </a>
-                    </div>
-                {% endfor %}
 
-            </div>
+<div class="container">
+    <div class="container-fluid">
+        <div class="row  align-items-start">
+            
+            {% show_sidebar_categories %}
             
             <div class="col">
-                {% for question in questions %} 
 
-                    <div class="card border-2 text-center ms-4 my-4">
+                {% for question in questions %}
+                    <div class="card py-2 px-5 ms-4 mb-3">
                         <div class="card-body">
-                            <a href="{{ question.get_absolute_url }}" class="card-title fs-4 mb-3 link-underline link-underline-opacity-0" ><p>{{ question.title }}</p></a>
-                            
-                            <p class="card-title fs-6 mb-3">
-                                Категория: <a class="link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{ question.category.get_absolute_url }}">{{ question.category }}</a>
-                            </p>
+                            <div class="mt-2 mb-4">
+                                <h5 class="h3 font-pt-serif"><a href="{{ question.get_absolute_url }}" style="text-decoration: none; color: black;">{{ question.title }}</a></h5>
+                            </div>
+        
+                            <div class="mt-2 mb-4">
+                                <p class="card-text font-noto-sans">{{ question.content | truncatewords_html:50 }}</p>
+                            </div>
 
-                            {% if question.tags %}
-                                <p class="card-title fs-6 mb-3">
-                                    Теги: 
-                                    <a href="{{ question.category.get_absolute_url }}">
-                                        {% for tag in question.tags.all %}
-                                            <a class="link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{ tag.get_absolute_url }}">{{ tag.text }}</a>{% if not forloop.last %}, {% endif %}
-                                        {% endfor %}
-                                    </a>
+                            <p class="my-0">Категория: 
+                                <a class="card-link link-offset-2 link-offset-2-hover link-underline link-underline-opacity-50 link-underline-opacity-75-hover" href="{{ question.category.get_absolute_url }}">
+                                    {{ question.category }}
+                                </a>
+                            </p>
+                            
+                            {% if question.tags.all %}
+                                <p class="mb-1">Теги: 
+                                    {% for tag in question.tags.all %}
+                                        <a href="{{ tag.get_absolute_url }}" class="card-link link-offset-2 link-offset-2-hover link-underline link-underline-opacity-50 link-underline-opacity-75-hover">{{ tag.text }}</a>{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
                                 </p>
-                                
-                            {% endif %}
+                            {% endif %} 
+
                         </div>
                     </div>
-
                 {% endfor %}
             </div>
         </div>
     </div>
+
 </div>
+
 {% endblock %}

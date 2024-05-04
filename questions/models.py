@@ -52,7 +52,7 @@ class Question(models.Model):
     created_at = models.DateTimeField(auto_now_add=True) 
     votes = models.IntegerField(default=0, null=False)
     slug = models.SlugField(null=False, default="", unique=True)
-    tags = models.ManyToManyField(Tag, related_name='questions')
+    tags = models.ManyToManyField(Tag, related_name='questions', blank=True)
     status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
 
     objects = models.Manager()

@@ -1,0 +1,15 @@
+<div class="col-md-3 d-md-block d-none lex-column align-items-start">
+
+    <div class="mb-3">
+        <h3 class="font-pt-serif">Категории</h3>
+    </div>
+
+    {% for category in categories %}
+        <div class="mb-2">
+            <a href="{{ category.get_absolute_url }}" class="link-dark link-offset-2 link-offset-2-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+                <p>{{ category.title }}</p>
+            </a>
+        </div>
+    {% endfor %}
+
+</div>

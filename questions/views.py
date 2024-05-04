@@ -16,7 +16,6 @@ class AllQuestionsView(View):
         categories = CategoryService.get_all_categories()
         context = {
             'questions': questions,
-            'categories': categories,
         }
         return render(request, self.template_name, context) 
 
