@@ -14,8 +14,7 @@ class Category(models.Model):
         return f'{self.title}'
     
     def get_absolute_url(self): 
-        return reverse('questions:category',
-                        args=[self.slug])
+        return reverse('questions:category', args=[self.slug])
     
     def save(self, *args, **kwargs):
         self.slug = slugify(unidecode(self.title))
@@ -77,8 +76,13 @@ class Question(models.Model):
     
     def get_absolute_url(self): 
         return reverse('questions:single_question',
-                        args=[self.created_at.year,
-                                self.created_at.month,
-                                self.created_at.day,
-                                self.slug])
+                        args=[self.created_at.year, self.created_at.month, self.created_at.day, self.slug])
     
+
+class Answer(models.Model): 
+    content = models.CharField(max_length=3000, null=False, blank=False) 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name='answers') 
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=False, related_name='answers') 
+    created_at = models.DateTimeField(auto_now_add=True) 
+    votes = models.IntegerField(default=0, null=False) 
+    is_the_best = models.BooleanField(default=False) 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Category, Tag
+from .models import Question, Category, Tag, Answer
 
 
 @admin.register(Question) 
@@ -22,3 +22,8 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ['text', 'slug', 'category']
     prepopulated_fields = {'slug': ('text',)}
     ordering = ['category']
+
+
+@admin.register(Answer)
+class AnswerAdmin(admin.ModelAdmin): 
+    list_display = ['content', 'question', 'user', 'votes'] 

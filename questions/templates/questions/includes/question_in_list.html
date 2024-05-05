@@ -1,0 +1,30 @@
+<div class="card py-2 px-5 ms-4 mb-3">
+    <div class="card-body">
+        <div class="mt-2 mb-4">
+            <h5 class="h3 font-pt-serif"><a href="{{ question.get_absolute_url }}" style="text-decoration: none; color: black;">{{ question.title }}</a></h5>
+        </div>
+
+        <div class="mt-2 mb-4">
+            <p class="card-text font-noto-sans">{{ question.content | truncatewords_html:15 }}</p>
+        </div>
+
+        <p class="my-0">Категория: 
+            <a class="card-link link-offset-2 link-offset-2-hover link-underline link-underline-opacity-50 link-underline-opacity-75-hover" href="{{ question.category.get_absolute_url }}">
+                {{ question.category }}
+            </a>
+        </p>
+        
+        {% if question.tags.all %}
+            <p class="mb-1">Теги: 
+                {% for tag in question.tags.all %}
+                    <a href="{{ tag.get_absolute_url }}" class="card-link link-offset-2 link-offset-2-hover link-underline link-underline-opacity-50 link-underline-opacity-75-hover">{{ tag.text }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        {% endif %} 
+
+        <div class="mt-2">
+            <p class="card-text"><small class="text-body-secondary">{{ question.created_at | date:"d.m.Y H:i" }}</small></p>
+        </div>
+
+    </div>
+</div>
