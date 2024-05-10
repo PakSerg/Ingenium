@@ -77,7 +77,7 @@ class Question(models.Model):
     def get_absolute_url(self): 
         return reverse('questions:single_question',
                         args=[self.created_at.year, self.created_at.month, self.created_at.day, self.slug])
-    
+     
 
 class Answer(models.Model): 
     content = models.CharField(max_length=3000, null=False, blank=False) 
@@ -86,3 +86,6 @@ class Answer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True) 
     votes = models.IntegerField(default=0, null=False) 
     is_the_best = models.BooleanField(default=False) 
+
+    def __str__(self) -> str: 
+        return f'{self.user}: {self.content}'

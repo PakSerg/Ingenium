@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.views import View 
+from django.views import View
+from django.views.generic import FormView, TemplateView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
-from .services import QuestionService, CategoryService
+from .services import QuestionService, CategoryService, AnswerService
+from .forms import CreateAnswerForm
 
 
 class AllQuestionsView(View): 
@@ -21,12 +24,39 @@ class AllCategoriesView(View):
     def get(self, request): 
         ...
 
-class SingleQuestionView(View): 
+class SingleQuestionView(View):  
     template_name = 'questions/single_question.html'
+    form_class = CreateAnswerForm
 
     def get(self, request, year: int, month: int, day: int, question_slug: str): 
-        question = QuestionService.get_published_by_slug_and_datetime(year, month, day, question_slug)
-        context = {'question': question} 
+        question = QuestionService.get_published_by_datetime_and_slug(year, month, day, question_slug)
+        form = CreateAnswerForm()
+
+        context = {
+            'question': question,
+            'form': form,
+        } 
+        return render(request, self.template_name, context) 
+    
+    def post(self, request, year: int, month: int, day: int, question_slug: str): 
+        user = request.user 
+        question = QuestionService.get_published_by_datetime_and_slug(year, month, day, question_slug) 
+        form = CreateAnswerForm(request.POST)
+
+        if form.is_valid(): 
+            answer_content = form.cleaned_data['content'] 
+            AnswerService.create_answer(answer_content, user, question) 
+            return redirect('questions:single_question', 
+                            year=question.created_at.year,
+                            month=question.created_at.month, 
+                            day=question.created_at.day, 
+                            question_slug=question.slug)
+        
+        context = {
+            'question': question,
+            'form': form,
+        }
+
         return render(request, self.template_name, context) 
 
 
@@ -40,7 +70,9 @@ class CategoryView(View):
             'questions': questions, 
             'category': category,
         }
-        return render(request, self.template_name, context) 
+        return render(request, self.template_name, context)  
+    
+
 
 
 class TagView(View): 

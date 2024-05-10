@@ -2,22 +2,27 @@ from django import forms
 from .models import User 
 from .services import AuthService
 
-
+ 
 class CreateUserForm(forms.ModelForm):
 
-    class Meta:
+    class Meta: 
         model = User 
-        fields = ['username', 'email', 'password'] 
+        fields = ['username', 'email'] 
         labels = {
             'username': 'Имя пользователя',
             'email': 'Электронная почта',
         }
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'Введите ваше имя'}), 
+            'email': forms.EmailInput(attrs={'placeholder': 'Ваша электронная почта'}), 
+            'password': forms.PasswordInput(attrs={'placeholder': 'Придумайте надёжный пароль'})
+        }
         help_texts = {
-            'username': '',
+            'username': ''
         }
 
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput) 
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'placeholder': 'Придумайте пароль (не менее 8 символов)'}))
+    password2 = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Повторите пароль'})) 
 
     def clean_password2(self):  
         cd = self.cleaned_data
@@ -41,8 +46,8 @@ class CreateUserForm(forms.ModelForm):
     
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label='Электронная почта', widget=forms.EmailInput)
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+    email = forms.EmailField(label='Электронная почта', widget=forms.EmailInput(attrs={'placeholder': 'Введите электронную почту'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль'}))
     
     def clean_password(self):
         password = self.cleaned_data['password'] 
