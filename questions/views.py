@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import FormView, TemplateView
 from django.shortcuts import redirect
-from django.urls import reverse_lazy, reverse
 from .services import QuestionService, CategoryService, AnswerService
 from .forms import CreateAnswerForm
+from django.http import JsonResponse 
+from django.views.decorators.http import require_POST
 
 
 class AllQuestionsView(View): 
@@ -58,7 +58,7 @@ class SingleQuestionView(View):
         }
 
         return render(request, self.template_name, context) 
-
+    
 
 class CategoryView(View): 
     template_name = 'questions/questions_in_category.html' 

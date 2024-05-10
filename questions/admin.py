@@ -4,10 +4,10 @@ from .models import Question, Category, Tag, Answer
 
 @admin.register(Question) 
 class QuestionAdmin(admin.ModelAdmin): 
-    list_display = ['title', 'content', 'category', 'user', 'created_at', 'votes', 'status']
+    list_display = ['title', 'content', 'category', 'user', 'created_at', 'votes_count', 'status']
     list_filter = ['created_at'] 
     prepopulated_fields = {'slug': ('title',)}
-    ordering = ['created_at', 'votes']
+    ordering = ['created_at', 'votes_count']
     raw_id_fields = ['tags']
 
 
@@ -26,4 +26,4 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin): 
-    list_display = ['content', 'question', 'user', 'votes'] 
+    list_display = ['content', 'question', 'user', 'votes_count'] 

@@ -21,6 +21,7 @@
                     <div>
                         <p class="font-jost h5">Спрашивает: {{ question.user.username }}</p>
                     </div>
+
                     <div>
                         <p class="font-jost">{{ question.created_at | date:"d.m.Y H:i" }}</p>
                     </div>
@@ -28,14 +29,34 @@
                 
                 <hr>
 
-                <div class="mt-4 mb-4">
-                    <div>
-                        <p class="h2 font-pt-serif">{{ question.title }}</p>
+                <div style="display: flex;">
+                    
+                    <div class="ms-3 mt-4 me-4 text-center">
+                        <div class="mb-1">
+                            <input type="radio" class="btn-check" id="btn-vote-down" name="vote" autocomplete="off">
+                            <label class="btn btn-outline-dark" for="btn-vote-down"><p class="h5">↑</p></label>
+                        </div>
+
+                        <div class="mt-2 mb-2">
+                            <p class="h5">{{ question.votes }}</p>
+                        </div>
+                    
+                        <div>
+                            <input type="radio" class="btn-check" id="btn-vote-up" name="vote" autocomplete="off">
+                            <label class="btn btn-outline-dark" for="btn-vote-up"><p class="h5">↓</p></label>
+                        </div>
                     </div>
-                    <div>
-                        <p>
-                            {{ question.content }}
-                        </p>
+                
+
+                    <div class="mt-4 mb-4">
+                        <div>
+                            <p class="h2 font-pt-serif">{{ question.title }}</p>
+                        </div>
+                        <div>
+                            <p>
+                                {{ question.content }}
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -49,8 +70,6 @@
                                 {% csrf_token %}
                                 <div class="form-floating mb-3">
                                     {{ form.content | as_crispy_field }}
-                                    <!-- <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea> -->
-                                    <!-- <label for="floatingTextarea">Введите свой ответ</label> -->
                                 </div>
 
                                 <div class="">

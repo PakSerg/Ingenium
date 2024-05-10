@@ -49,7 +49,7 @@ class Question(models.Model):
     title = models.CharField(max_length=120, blank=False, null=False) 
     content = models.TextField(max_length=2000, blank=False, null=False) 
     created_at = models.DateTimeField(auto_now_add=True) 
-    votes = models.IntegerField(default=0, null=False)
+    votes_count = models.IntegerField(default=0, null=False)
     slug = models.SlugField(null=False, default="", unique=True)
     tags = models.ManyToManyField(Tag, related_name='questions', blank=True)
     status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
@@ -84,7 +84,7 @@ class Answer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name='answers') 
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=False, related_name='answers') 
     created_at = models.DateTimeField(auto_now_add=True) 
-    votes = models.IntegerField(default=0, null=False) 
+    votes_count = models.IntegerField(default=0, null=False) 
     is_the_best = models.BooleanField(default=False) 
 
     def __str__(self) -> str: 
