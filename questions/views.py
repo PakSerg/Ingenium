@@ -11,7 +11,7 @@ class AllQuestionsView(View):
     template_name = 'questions/all_questions.html'
 
     def get(self, request): 
-        questions = QuestionService.get_published_sorted_by_votes() 
+        questions = QuestionService.get_published_questions_sorted_by_votes() 
         context = {
             'questions': questions,
         }
@@ -29,7 +29,7 @@ class SingleQuestionView(View):
     form_class = CreateAnswerForm
 
     def get(self, request, year: int, month: int, day: int, question_slug: str): 
-        question = QuestionService.get_published_by_datetime_and_slug(year, month, day, question_slug)
+        question = QuestionService.get_published_question(year, month, day, question_slug)
         form = CreateAnswerForm()
 
         context = {
@@ -40,7 +40,7 @@ class SingleQuestionView(View):
     
     def post(self, request, year: int, month: int, day: int, question_slug: str): 
         user = request.user 
-        question = QuestionService.get_published_by_datetime_and_slug(year, month, day, question_slug) 
+        question = QuestionService.get_published_question(year, month, day, question_slug) 
         form = CreateAnswerForm(request.POST)
 
         if form.is_valid(): 
@@ -65,7 +65,7 @@ class CategoryView(View):
 
     def get(self, request, category_slug: str): 
         category = CategoryService.get_by_slug(category_slug)
-        questions = QuestionService.get_published_in_category(category_slug)
+        questions = QuestionService.get_published_questions_for_category(category_slug)
         context = {
             'questions': questions, 
             'category': category,

@@ -27,4 +27,8 @@ class AuthService:
         return User.objects.filter(email=current_user.email).exclude(pk=current_user.pk).exists()
     
 
+class UserService(): 
+    def get_user_by_id(user_id: int) -> User | None: 
+        return User.objects.get(pk=user_id)
+    
 

@@ -1,12 +1,12 @@
 from django.test import TestCase
 from .models import User 
-from .services import AuthService
+from .services import AuthService, UserService
 
 
 class AuthServiceTestCase(TestCase): 
 
     def setUp(self):
-        self.user: User = User.objects.create(username='test_user', 
+        self.user = User.objects.create(username='test_user', 
                                         email='test@gmail.com', password='test_password')
 
     def test_email_exists(self): 
@@ -28,4 +28,12 @@ class AuthServiceTestCase(TestCase):
         self.assertTrue(AuthService.another_user_has_same_username(user)) 
         self.assertTrue(AuthService.another_user_has_same_email(user))
 
-    
+
+class UserServiceTestCase(TestCase): 
+    def setUp(self):
+        self.user: User = User.objects.create(username='test_user', 
+                                        email='test@gmail.com', password='test_password') 
+        
+    def test_get_user_by_id(self): 
+        user = UserService.get_user_by_id(self.user.pk) 
+        self.assertEqual(user, self.user)

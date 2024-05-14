@@ -3,7 +3,7 @@ from users.models import User
 from questions.models import Question
 
 
-class QuestionVote(models.Model): 
+class VoteForQuestion(models.Model): 
 
     class VoteType(models.IntegerChoices): 
         UP = 1, 'Лайк'

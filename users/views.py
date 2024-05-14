@@ -3,7 +3,7 @@ from django.contrib.auth  import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.views import View 
 from django.views.generic.edit import FormView
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.db import transaction
 from .forms import CreateUserForm, LoginForm, ProfileEditForm
@@ -40,11 +40,10 @@ class LoginView(FormView):
         user = authenticate(self.request, email=cd['email'], password=cd['password'])
         if user:
             login(self.request, user)
-            print('Залогинились')
             return super().form_valid(form) 
-        else:
-            form.add_error(None, "Неверный логин или пароль")
-            return self.form_invalid(form)
+        
+        form.add_error(None, "Неверный логин или пароль")
+        return self.form_invalid(form)
             
 
 class LogoutView(View):
