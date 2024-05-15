@@ -7,50 +7,110 @@ from users.models import User
 from questions.models import Question 
 from .models import VoteForQuestion
 from django.db import transaction
-
-
-@require_POST
-@login_required
-def vote_for_question(request): 
-    user_id = request.POST.get('user_id') 
-    question_id = request.POST.get('question_id')
-    vote_type = request.POST.get('vote_type') 
-
-    if not user_id or not vote_type or not question_id or vote_type not in ('up', 'down', 'delete'): 
-        return JsonResponse({'status': 'error', 'message': 'invalid input'}) 
     
+    
+# @transaction.atomic
+# @require_POST
+# @login_required
+# def vote_up(request): 
+#     question_id = request.POST.get('question_id')
+#     user_id = request.POST.get('user_id')
+
+#     if not all((question_id, user_id)): 
+#         return JsonResponse({'status': 'error', 
+#                              'message': 'invalid input'}) 
+    
+#     try: 
+#         votes_count = VoteForQuestionService.vote_up(question_id, user_id)
+#         return JsonResponse({'status': 'ok', 
+#                              'votes_count': votes_count}) 
+#     except Exception as e: 
+#         if isinstance(e, (User.DoesNotExist, Question.DoesNotExist, VoteForQuestion.DoesNotExist)):
+#             message = 'no such user, question or vote found'
+#         elif isinstance(e, PermissionError):
+#             message = 'already voted'
+#         else:
+#             message = f'unknown exception: {e.args}'
+#         return JsonResponse({'status': 'error', 'message': message})
+    
+
+# @transaction.atomic
+# @require_POST
+# @login_required
+# def vote_down(request): 
+#     question_id = request.POST.get('question_id')
+#     user_id = request.POST.get('user_id')
+
+#     if not all((question_id, user_id)): 
+#         return JsonResponse({'status': 'error', 
+#                              'message': 'invalid input'}) 
+    
+#     try: 
+#         votes_count = VoteForQuestionService.vote_down(question_id, user_id)
+#         return JsonResponse({'status': 'ok', 
+#                              'votes_count': votes_count}) 
+#     except Exception as e: 
+#         if isinstance(e, (User.DoesNotExist, Question.DoesNotExist, VoteForQuestion.DoesNotExist)):
+#             message = 'no such user, question or vote found'
+#         elif isinstance(e, PermissionError):
+#             message = 'already voted'
+#         else:
+#             message = f'unknown exception: {e.args}'
+#         return JsonResponse({'status': 'error', 'message': message}) 
+    
+
+# @transaction.atomic
+# @require_POST
+# @login_required
+# def delete_vote(request): 
+#     question_id = request.POST.get('question_id')
+#     user_id = request.POST.get('user_id')
+
+#     if not all((question_id, user_id)): 
+#         return JsonResponse({'status': 'error', 
+#                              'message': 'invalid input'}) 
+#     try: 
+#         votes_count = VoteForQuestionService.delete_existing_vote(question_id, user_id)
+#         return JsonResponse({'status': 'ok', 
+#                              'votes_count': votes_count}) 
+#     except Exception as e: 
+#         if isinstance(e, (User.DoesNotExist, Question.DoesNotExist, VoteForQuestion.DoesNotExist)):
+#             message = 'no such user, question or vote found'
+#         else:
+#             message = f'unknown exception: {e.args}'
+#         return JsonResponse({'status': 'error', 'message': message})
+    
+
+@transaction.atomic
+@require_POST
+@login_required 
+def vote_for_question(request): 
+    question_id = request.POST.get('question_id')
+    user_id = request.POST.get('user_id')
+    vote_type = request.POST.get('vote_type')
+
+    if not all((question_id, user_id)): 
+        return JsonResponse({'status': 'error', 
+                             'message': 'invalid input'}) 
     try: 
         match vote_type: 
             case 'up': 
-                QuestionService.increment_votes_count(question_id)
-                VoteForQuestionService.vote_up(question_id, user_id) 
-                
-            case 'down':
-                QuestionService.decrement_votes_count(question_id)
-                VoteForQuestionService.vote_down(question_id, user_id) 
-
+                votes_count = VoteForQuestionService.vote_up(question_id, user_id)
+            case 'down': 
+                votes_count = VoteForQuestionService.vote_down(question_id, user_id)
             case 'delete': 
-                vote = VoteForQuestionService.get_vote(question_id, user_id)
-                
-                if vote.type == 1: 
-                    QuestionService.decrement_votes_count(question_id) 
-                elif vote.type == -1:
-                    QuestionService.increment_votes_count(question_id) 
-
-                VoteForQuestionService.delete_existing_vote(question_id, user_id) 
-                    
-            case _:
-                raise Exception
-            
-        votes_count = QuestionService.get_question_by_id(question_id).votes_count
-        return JsonResponse({'status': 'ok', 'votes_count': votes_count}) 
-            
-    except (User.DoesNotExist, Question.DoesNotExist, VoteForQuestion.DoesNotExist): 
-        return JsonResponse({'status': 'error', 
-                             'message': 'no such user, question or vote found'}) 
-    except:
-        return JsonResponse({'status': 'error', 
-                             'message': 'unknown exception'}) 
-
-    
-    
+                votes_count = VoteForQuestionService.delete_existing_vote(question_id, user_id)
+            case _: 
+                raise ValueError()
+        return JsonResponse({'status': 'ok', 
+                             'votes_count': votes_count}) 
+    except Exception as e: 
+        if isinstance(e, (User.DoesNotExist, Question.DoesNotExist, VoteForQuestion.DoesNotExist)):
+            message = 'no such user, question or vote found'
+        elif isinstance(e, ValueError): 
+            message = 'invalid vote_type value'
+        elif isinstance(e, PermissionError): 
+            message = 'already voted'
+        else:
+            message = f'unknown exception: {e.args}'
+        return JsonResponse({'status': 'error', 'message': message})

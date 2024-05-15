@@ -10,7 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls), 
     path('users/', include('users.urls', namespace='users')),
     path('questions/', include('questions.urls', namespace='questions')), 
-    path('votes/', include('votes.urls', namespace='votes'))
+    path('votes/', include('votes.urls', namespace='votes')),
 
 
     path('', LoginView.as_view()),  # Для перенаправления порта

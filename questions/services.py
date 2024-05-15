@@ -23,31 +23,6 @@ class QuestionService:
                                        created_at__day=day, 
                                        slug=question_slug).first()
     
-    @staticmethod 
-    def set_votes_count(question_id: int, votes_count: int) -> None: 
-        
-        question = QuestionService.get_question_by_id(question_id)
-        question.votes_count = votes_count 
-        question.save() 
-
-    @staticmethod
-    def increment_votes_count(question_id: int) -> int: 
-        question = QuestionService.get_question_by_id(question_id)
-        
-        question.votes_count += 1
-        question.save()
-
-        return question.votes_count
-    
-    @staticmethod
-    def decrement_votes_count(question_id: int) -> int: 
-        question = QuestionService.get_question_by_id(question_id)
-        
-        question.votes_count -= 1
-        question.save()
-
-        return question.votes_count
-    
     @staticmethod
     def get_question_by_id(question_id: int) -> Question: 
         return Question.objects.get(pk=question_id)
