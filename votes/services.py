@@ -53,7 +53,6 @@ class VoteForQuestionService():
             question.votes_count += 1
         
         question.save()
-        print(question.votes_count)
         VoteForQuestion.delete(vote_to_delete) 
 
     @staticmethod 

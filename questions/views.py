@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.shortcuts import redirect
 from .services import QuestionService, CategoryService, AnswerService
+from votes.services import VoteForQuestionService
 from .forms import CreateAnswerForm
 from django.http import JsonResponse 
 from django.views.decorators.http import require_POST
@@ -32,10 +33,16 @@ class SingleQuestionView(View):
         question = QuestionService.get_published_question(year, month, day, question_slug)
         form = CreateAnswerForm()
 
+        user_vote = None
+        if request.user.is_authenticated:
+            user_vote = VoteForQuestionService.get_vote_or_none(question.pk, request.user.pk)
+
         context = {
             'question': question,
-            'form': form,
+            'form': form, 
+            'user_vote': user_vote
         } 
+
         return render(request, self.template_name, context) 
     
     def post(self, request, year: int, month: int, day: int, question_slug: str): 

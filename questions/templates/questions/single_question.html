@@ -33,17 +33,24 @@
                     
                     <div class="ms-3 mt-4 me-4 text-center">
                         <div class="mb-1">
-                            <input type="radio" class="btn-check" id="btn-vote-down" name="vote" autocomplete="off">
-                            <label class="btn btn-outline-dark" for="btn-vote-down"><p class="h5">↑</p></label>
+                            <input data-action="voteUp" type="radio" 
+                            class="btn-check vote-button" id="btnVoteUp" 
+                            name="vote" autocomplete="off"
+                            {% if user_vote and user_vote.is_up %}checked{% endif %}>
+
+                            <label class="btn btn-outline-dark" for="btnVoteUp"><p class="h5">↑</p></label>
                         </div>
 
                         <div class="mt-2 mb-2">
-                            <p class="h5">{{ question.votes_count }}</p>
+                            <p id="questionVotesCount" class="h5">{{ question.votes_count }}</p>
                         </div>
                     
                         <div>
-                            <input type="radio" class="btn-check" id="btn-vote-up" name="vote" autocomplete="off">
-                            <label class="btn btn-outline-dark" for="btn-vote-up"><p class="h5">↓</p></label>
+                            <input data-action="voteDown" type="radio" 
+                            class="btn-check vote-button" id="btnVoteDown" 
+                            name="vote" autocomplete="off"
+                            {% if user_vote and user_vote.is_down %}checked{% endif %}>
+                            <label class="btn btn-outline-dark" for="btnVoteDown"><p class="h5">↓</p></label>
                         </div>
                     </div>
                 
@@ -121,6 +128,108 @@
     </div>
 </div>
 
-<script src="{% static 'js/single_question.js' %}"></script>
+{% endblock %}
+
+{% block domready %} 
+<script>
+const API_URLS = {
+    voteUp: "{% url 'votes:vote_up_for_question' %}",
+    voteDown: "{% url 'votes:vote_down_for_question' %}",
+    deleteVote: "{% url 'votes:delete_vote_for_question' %}"
+};
+
+const ERROR_MESSAGES = {
+    unexpected: "An unexpected error occurred.",
+    missingElement: "Element is missing."
+};
+
+const BUTTON_IDS = {
+    buttonVoteUp: "btnVoteUp", 
+    buttonVoteDown: "btnVoteDown"
+}
+
+async function handleVote(action) {
+    try {
+        const formData = new FormData();
+        formData.append("question_id", "{{ question.pk }}");
+
+        const url = API_URLS[action];
+        const headers = {
+            "X-CSRFToken": "{{ csrf_token }}"
+        };
+        const options = {
+            method: "POST",
+            headers: headers,
+            mode: "same-origin",
+            body: formData
+        };
+
+        const response = await fetch(url, options);
+        const data = await response.json();
+
+        if (response.ok && data.status === "ok") {
+            updateVotesCount(data.votes_count);
+        } else {
+            handleError(data.message || ERROR_MESSAGES.unexpected);
+        }
+    } catch (error) {
+        handleError(ERROR_MESSAGES.unexpected);
+    }
+}
+
+
+function updateVotesCount(count) {
+    if (count === null) {
+        count = 0;
+    }
+    const votesCountElement = document.getElementById("questionVotesCount");
+    if (votesCountElement) {
+        votesCountElement.textContent = count;
+    } else {
+        handleError(ERROR_MESSAGES.missingElement);
+    }
+}
+
+function handleError(message) {
+    console.error(message);
+}
+
+function changeButtonState(button) {
+    let action = button.dataset.action;
+    const buttonUp = document.getElementById(BUTTON_IDS.buttonVoteUp);
+    const buttonDown = document.getElementById(BUTTON_IDS.buttonVoteDown);
+
+    if (action === "voteUp") {
+        buttonUp.checked = true;
+        buttonDown.checked = false;
+        button.dataset.action = "deleteVote";
+        buttonDown.dataset.action = "voteDown";
+
+    } else if (action === "voteDown") {
+        buttonDown.checked = true;
+        buttonUp.checked = false;
+        button.dataset.action = "deleteVote";
+        buttonUp.dataset.action = "voteUp";
+        
+    } else if (action === "deleteVote") {
+        if (button.id === BUTTON_IDS.buttonVoteUp) {
+            button.checked = false;
+            button.dataset.action = "voteUp";
+        } else if (button.id === BUTTON_IDS.buttonVoteDown) {
+            button.checked = false;
+            button.dataset.action = "voteDown";
+        }
+    }
+}
+
+const actionButtons = document.querySelectorAll('.vote-button');
+actionButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const action = button.dataset.action;
+        handleVote(action);
+        changeButtonState(button);
+    });
+});
+</script>
 
 {% endblock %}

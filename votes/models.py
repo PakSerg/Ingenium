@@ -13,3 +13,10 @@ class VoteForQuestion(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='votes') 
     type = models.IntegerField(choices=VoteType.choices, default=VoteType.UP)
     
+    @property
+    def is_up(self):
+        return True if self.type == VoteType.UP else False
+
+    @property
+    def is_down(self):
+        return True if self.type == VoteType.DOWN else False
