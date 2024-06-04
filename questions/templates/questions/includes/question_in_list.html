@@ -1,6 +1,6 @@
-<div class="d-flex mb-4 shadow-sm">
+<div class="d-flex mb-1 shadow-sm">
 
-    <div class="text-center pt-4">
+    <div class="text-center pt-4 ms-4">
         <div class="mb-2 text-muted">
             <span class="d-block">{{ question.votes_count }}</span>
             <small>голосов</small>
@@ -22,20 +22,20 @@
             </div>
 
             <div class="mb-1">
-                <p class="card-text font-noto-sans">
+                <p class="card-text font-noto-sans small">
                     {{ question.content | truncatewords_html:20 }}
                 </p>
             </div>
 
-            <p class="my-0 text-secondary">
+            <p class="my-0 text-secondary small">
                 Категория:
-                <a class="card-link text-secondary" href="{{ question.category.get_absolute_url }}">
+                <a class="card-link text-secondary " href="{{ question.category.get_absolute_url }}">
                     {{ question.category }}
                 </a>
             </p>
 
             {% if question.tags.all %}
-                <p class="my-0">
+                <p class="my-0 small">
                     <b>
                         {% for tag in question.tags.all %}
                             <a href="{{ tag.get_absolute_url }}" class="font-pt-serif text-secondary me-2">{{ tag.text }}</a>

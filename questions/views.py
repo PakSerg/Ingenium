@@ -1,11 +1,11 @@
+from typing import Any
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from .services import QuestionService, CategoryService, AnswerService
 from votes.services import VoteForQuestionService
 from .forms import CreateAnswerForm
-from django.http import JsonResponse 
-from django.views.decorators.http import require_POST
 
 
 class AllQuestionsView(View): 
@@ -19,11 +19,14 @@ class AllQuestionsView(View):
         return render(request, self.template_name, context) 
 
 
-class AllCategoriesView(View): 
-    template_name = ... 
+class AllCategoriesView(TemplateView): 
+    template_name = 'questions/all_categories.html'
 
-    def get(self, request): 
-        ...
+    def get_context_data(self):
+        all_categories = CategoryService.get_all_categories()
+        context = { 'categories': all_categories }
+        return context
+    
 
 class SingleQuestionView(View):  
     template_name = 'questions/single_question.html'
@@ -58,12 +61,10 @@ class SingleQuestionView(View):
                             month=question.created_at.month, 
                             day=question.created_at.day, 
                             question_slug=question.slug)
-        
         context = {
             'question': question,
             'form': form,
         }
-
         return render(request, self.template_name, context) 
     
 
@@ -80,7 +81,7 @@ class CategoryView(View):
         return render(request, self.template_name, context)  
     
 
-
+    
 
 class TagView(View): 
     ...

@@ -32,8 +32,10 @@ class Tag(models.Model):
         return super(Tag, self).save(*args, **kwargs)
     
     def get_absolute_url(self): 
-        return reverse('questions:tag',
-                        args=[self.slug])
+        return reverse('questions:tag', args=[self.slug])
+    
+    def __str__(self) -> str:
+        return f'{self.text}'
 
 
 class Question(models.Model): 
@@ -44,8 +46,7 @@ class Question(models.Model):
         BANNED = 'BN', 'В бане'
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions') 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1, 
-                                 related_name='categories')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1, related_name='categories')
     title = models.CharField(max_length=120, blank=False, null=False) 
     content = models.TextField(max_length=2000, blank=False, null=False) 
     created_at = models.DateTimeField(auto_now_add=True) 

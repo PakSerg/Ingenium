@@ -42,7 +42,7 @@ class VoteForQuestionService():
         return question.votes_count
 
     @staticmethod 
-    def delete_existing_vote(question_id: int, user_id: int) -> None: 
+    def delete_existing_vote(question_id: int, user_id: int) -> int: 
         vote_to_delete = VoteForQuestionService.get_vote(question_id, user_id)
         
         question = QuestionService.get_question_by_id(question_id)
@@ -54,6 +54,8 @@ class VoteForQuestionService():
         
         question.save()
         VoteForQuestion.delete(vote_to_delete) 
+        
+        return question.votes_count
 
     @staticmethod 
     def count_voting_result(question_id: int) -> int: 

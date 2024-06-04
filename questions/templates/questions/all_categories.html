@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load questions_tags %}
+
+{% block title %}
+    Все категории - Ingenium
+{% endblock title %}
+
+{% block content %}
+<div class="container px-4">
+    <h1 class="text-center mt-4 mb-5 font-noto-sans">Все категории</h1>
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title font-jost"><a href="{{ category.get_absolute_url }}" style="text-decoration: none; color: black;">{{ category.title }}</a></h3>
+                    <small class="card-text font-noto-sans">{{ category.description }}</small>
+                </div>
+                {% if category.tags.all %}
+                    <div class="card-footer">
+
+                        <small class="text-muted">Теги: 
+                            {% for tag in category.tags.all|slice:":4" %}
+
+                                {{ tag }}{% if not forloop.last %}, {% endif %} 
+
+                            {% endfor %}...
+                        </small>
+
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
