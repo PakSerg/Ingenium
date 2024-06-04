@@ -1,0 +1,2009 @@
+[
+    {
+        "model": "questions.tag",
+        "pk": 1,
+        "fields": {
+            "text": "Python",
+            "slug": "python",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 9,
+        "fields": {
+            "text": "Java",
+            "slug": "java",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 10,
+        "fields": {
+            "text": "JavaScript",
+            "slug": "javascript",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 11,
+        "fields": {
+            "text": "C++",
+            "slug": "c",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 12,
+        "fields": {
+            "text": "Ruby",
+            "slug": "ruby",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 13,
+        "fields": {
+            "text": "PHP",
+            "slug": "php",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 14,
+        "fields": {
+            "text": "HTML",
+            "slug": "html",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 15,
+        "fields": {
+            "text": "CSS",
+            "slug": "css",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 16,
+        "fields": {
+            "text": "SQL",
+            "slug": "sql",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 17,
+        "fields": {
+            "text": "React",
+            "slug": "react",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 18,
+        "fields": {
+            "text": "Angular",
+            "slug": "angular",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 19,
+        "fields": {
+            "text": "Node.js",
+            "slug": "nodejs",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 20,
+        "fields": {
+            "text": "Swift",
+            "slug": "swift",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 21,
+        "fields": {
+            "text": "Kotlin",
+            "slug": "kotlin",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 22,
+        "fields": {
+            "text": "Unity",
+            "slug": "unity",
+            "category": 2
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 23,
+        "fields": {
+            "text": "Здоровый образ жизни",
+            "slug": "zdorovyi-obraz-zhizni",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 24,
+        "fields": {
+            "text": "Медицинские исследования",
+            "slug": "meditsinskie-issledovaniia",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 25,
+        "fields": {
+            "text": "Диета и питание",
+            "slug": "dieta-i-pitanie",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 26,
+        "fields": {
+            "text": "Физическая активность",
+            "slug": "fizicheskaia-aktivnost",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 27,
+        "fields": {
+            "text": "Ментальное здоровье",
+            "slug": "mentalnoe-zdorove",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 28,
+        "fields": {
+            "text": "Болезни и их лечение",
+            "slug": "bolezni-i-ikh-lechenie",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 29,
+        "fields": {
+            "text": "Медицинские процедуры",
+            "slug": "meditsinskie-protsedury",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 30,
+        "fields": {
+            "text": "Медицинская техника",
+            "slug": "meditsinskaia-tekhnika",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 31,
+        "fields": {
+            "text": "Гинекология",
+            "slug": "ginekologiia",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 32,
+        "fields": {
+            "text": "Педиатрия",
+            "slug": "pediatriia",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 33,
+        "fields": {
+            "text": "Кардиология",
+            "slug": "kardiologiia",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 34,
+        "fields": {
+            "text": "Онкология",
+            "slug": "onkologiia",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 35,
+        "fields": {
+            "text": "Нейрология",
+            "slug": "neirologiia",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 36,
+        "fields": {
+            "text": "Психиатрия",
+            "slug": "psikhiatriia",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 37,
+        "fields": {
+            "text": "Травматология",
+            "slug": "travmatologiia",
+            "category": 3
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 38,
+        "fields": {
+            "text": "Путеводители",
+            "slug": "putevoditeli",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 39,
+        "fields": {
+            "text": "Отели и гостиницы",
+            "slug": "oteli-i-gostinitsy",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 40,
+        "fields": {
+            "text": "Путешествия с детьми",
+            "slug": "puteshestviia-s-detmi",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 41,
+        "fields": {
+            "text": "Пешие прогулки",
+            "slug": "peshie-progulki",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 42,
+        "fields": {
+            "text": "Экскурсии",
+            "slug": "ekskursii",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 43,
+        "fields": {
+            "text": "Пляжный отдых",
+            "slug": "pliazhnyi-otdykh",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 44,
+        "fields": {
+            "text": "Горнолыжные курорты",
+            "slug": "gornolyzhnye-kurorty",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 45,
+        "fields": {
+            "text": "Экстрим туризм",
+            "slug": "ekstrim-turizm",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 46,
+        "fields": {
+            "text": "Экотуризм",
+            "slug": "ekoturizm",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 47,
+        "fields": {
+            "text": "Круизы",
+            "slug": "kruizy",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 48,
+        "fields": {
+            "text": "Путешествия на велосипеде",
+            "slug": "puteshestviia-na-velosipede",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 49,
+        "fields": {
+            "text": "Путешествия на автомобиле",
+            "slug": "puteshestviia-na-avtomobile",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 50,
+        "fields": {
+            "text": "Путешествия на поезде",
+            "slug": "puteshestviia-na-poezde",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 51,
+        "fields": {
+            "text": "Культурные мероприятия",
+            "slug": "kulturnye-meropriiatiia",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 52,
+        "fields": {
+            "text": "Гастрономические туры",
+            "slug": "gastronomicheskie-tury",
+            "category": 4
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 53,
+        "fields": {
+            "text": "Живопись",
+            "slug": "zhivopis",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 54,
+        "fields": {
+            "text": "Скульптура",
+            "slug": "skulptura",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 55,
+        "fields": {
+            "text": "Музыка",
+            "slug": "muzyka",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 56,
+        "fields": {
+            "text": "Театр",
+            "slug": "teatr",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 57,
+        "fields": {
+            "text": "Литература",
+            "slug": "literatura",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 58,
+        "fields": {
+            "text": "Фотография",
+            "slug": "fotografiia",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 59,
+        "fields": {
+            "text": "Кино",
+            "slug": "kino",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 60,
+        "fields": {
+            "text": "Танец",
+            "slug": "tanets",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 61,
+        "fields": {
+            "text": "Архитектура",
+            "slug": "arkhitektura",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 62,
+        "fields": {
+            "text": "Дизайн",
+            "slug": "dizain",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 63,
+        "fields": {
+            "text": "История искусства",
+            "slug": "istoriia-iskusstva",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 64,
+        "fields": {
+            "text": "Искусствоведение",
+            "slug": "iskusstvovedenie",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 65,
+        "fields": {
+            "text": "Графический дизайн",
+            "slug": "graficheskii-dizain",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 66,
+        "fields": {
+            "text": "Визуальные искусства",
+            "slug": "vizualnye-iskusstva",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 67,
+        "fields": {
+            "text": "Современное искусство",
+            "slug": "sovremennoe-iskusstvo",
+            "category": 5
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 68,
+        "fields": {
+            "text": "Школьное образование",
+            "slug": "shkolnoe-obrazovanie",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 69,
+        "fields": {
+            "text": "Вузы и институты",
+            "slug": "vuzy-i-instituty",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 70,
+        "fields": {
+            "text": "Онлайн-курсы",
+            "slug": "onlain-kursy",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 71,
+        "fields": {
+            "text": "Дополнительное образование",
+            "slug": "dopolnitelnoe-obrazovanie",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 72,
+        "fields": {
+            "text": "Профессиональная переподготовка",
+            "slug": "professionalnaia-perepodgotovka",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 73,
+        "fields": {
+            "text": "Карьерное развитие",
+            "slug": "karernoe-razvitie",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 74,
+        "fields": {
+            "text": "Языковые курсы",
+            "slug": "iazykovye-kursy",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 75,
+        "fields": {
+            "text": "Инженерное образование",
+            "slug": "inzhenernoe-obrazovanie",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 76,
+        "fields": {
+            "text": "Математика",
+            "slug": "matematika",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 77,
+        "fields": {
+            "text": "Физика",
+            "slug": "fizika",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 78,
+        "fields": {
+            "text": "Химия",
+            "slug": "khimiia",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 79,
+        "fields": {
+            "text": "Биология",
+            "slug": "biologiia",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 80,
+        "fields": {
+            "text": "Информатика",
+            "slug": "informatika",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 81,
+        "fields": {
+            "text": "Психология",
+            "slug": "psikhologiia",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 82,
+        "fields": {
+            "text": "Экономика",
+            "slug": "ekonomika",
+            "category": 6
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 83,
+        "fields": {
+            "text": "Брак и семья",
+            "slug": "brak-i-semia",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 84,
+        "fields": {
+            "text": "Родительство",
+            "slug": "roditelstvo",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 85,
+        "fields": {
+            "text": "Воспитание детей",
+            "slug": "vospitanie-detei",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 86,
+        "fields": {
+            "text": "Партнерские отношения",
+            "slug": "partnerskie-otnosheniia",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 87,
+        "fields": {
+            "text": "Межличностные конфликты",
+            "slug": "mezhlichnostnye-konflikty",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 88,
+        "fields": {
+            "text": "Психология семейных отношений",
+            "slug": "psikhologiia-semeinykh-otnoshenii",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 89,
+        "fields": {
+            "text": "Сексуальность и интимные отношения",
+            "slug": "seksualnost-i-intimnye-otnosheniia",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 90,
+        "fields": {
+            "text": "Психологическая поддержка",
+            "slug": "psikhologicheskaia-podderzhka",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 91,
+        "fields": {
+            "text": "Развод и разрыв отношений",
+            "slug": "razvod-i-razryv-otnoshenii",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 92,
+        "fields": {
+            "text": "Семейное насилие",
+            "slug": "semeinoe-nasilie",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 93,
+        "fields": {
+            "text": "Планирование семьи",
+            "slug": "planirovanie-semi",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 94,
+        "fields": {
+            "text": "Домашние животные",
+            "slug": "domashnie-zhivotnye",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 95,
+        "fields": {
+            "text": "Финансовые аспекты семейной жизни",
+            "slug": "finansovye-aspekty-semeinoi-zhizni",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 96,
+        "fields": {
+            "text": "Забота о пожилых родителях",
+            "slug": "zabota-o-pozhilykh-roditeliakh",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 97,
+        "fields": {
+            "text": "Отношения в межкультурных семьях",
+            "slug": "otnosheniia-v-mezhkulturnykh-semiakh",
+            "category": 7
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 98,
+        "fields": {
+            "text": "Личные финансы",
+            "slug": "lichnye-finansy",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 99,
+        "fields": {
+            "text": "Бюджетирование",
+            "slug": "biudzhetirovanie",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 100,
+        "fields": {
+            "text": "Инвестиции в акции",
+            "slug": "investitsii-v-aktsii",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 101,
+        "fields": {
+            "text": "Недвижимость",
+            "slug": "nedvizhimost",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 102,
+        "fields": {
+            "text": "Криптовалюты",
+            "slug": "kriptovaliuty",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 103,
+        "fields": {
+            "text": "Пенсионное обеспечение",
+            "slug": "pensionnoe-obespechenie",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 104,
+        "fields": {
+            "text": "Страхование",
+            "slug": "strakhovanie",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 105,
+        "fields": {
+            "text": "Налоговое планирование",
+            "slug": "nalogovoe-planirovanie",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 106,
+        "fields": {
+            "text": "Финансовая грамотность",
+            "slug": "finansovaia-gramotnost",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 107,
+        "fields": {
+            "text": "Банковские продукты",
+            "slug": "bankovskie-produkty",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 108,
+        "fields": {
+            "text": "Финансовый рынок",
+            "slug": "finansovyi-rynok",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 109,
+        "fields": {
+            "text": "Торговля на бирже",
+            "slug": "torgovlia-na-birzhe",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 110,
+        "fields": {
+            "text": "Финансовый консалтинг",
+            "slug": "finansovyi-konsalting",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 111,
+        "fields": {
+            "text": "Кредиты и займы",
+            "slug": "kredity-i-zaimy",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 112,
+        "fields": {
+            "text": "Финансовая аналитика",
+            "slug": "finansovaia-analitika",
+            "category": 8
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 113,
+        "fields": {
+            "text": "Футбол",
+            "slug": "futbol",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 114,
+        "fields": {
+            "text": "Баскетбол",
+            "slug": "basketbol",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 115,
+        "fields": {
+            "text": "Теннис",
+            "slug": "tennis",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 116,
+        "fields": {
+            "text": "Плавание",
+            "slug": "plavanie",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 117,
+        "fields": {
+            "text": "Бег",
+            "slug": "beg",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 118,
+        "fields": {
+            "text": "Йога",
+            "slug": "ioga",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 119,
+        "fields": {
+            "text": "Бодибилдинг",
+            "slug": "bodibilding",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 120,
+        "fields": {
+            "text": "Кроссфит",
+            "slug": "krossfit",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 121,
+        "fields": {
+            "text": "Велоспорт",
+            "slug": "velosport",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 122,
+        "fields": {
+            "text": "Гимнастика",
+            "slug": "gimnastika",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 123,
+        "fields": {
+            "text": "Здоровье спины",
+            "slug": "zdorove-spiny",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 124,
+        "fields": {
+            "text": "Аэробика",
+            "slug": "aerobika",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 125,
+        "fields": {
+            "text": "Марафоны и забеги",
+            "slug": "marafony-i-zabegi",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 126,
+        "fields": {
+            "text": "Экстремальные виды спорта",
+            "slug": "ekstremalnye-vidy-sporta",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 127,
+        "fields": {
+            "text": "Фитнес-трекеры",
+            "slug": "fitnes-trekery",
+            "category": 9
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 128,
+        "fields": {
+            "text": "Вегетарианство",
+            "slug": "vegetarianstvo",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 129,
+        "fields": {
+            "text": "Веганство",
+            "slug": "veganstvo",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 130,
+        "fields": {
+            "text": "Мясные блюда",
+            "slug": "miasnye-bliuda",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 131,
+        "fields": {
+            "text": "Рыбные блюда",
+            "slug": "rybnye-bliuda",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 132,
+        "fields": {
+            "text": "Десерты и сладости",
+            "slug": "deserty-i-sladosti",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 133,
+        "fields": {
+            "text": "Завтраки",
+            "slug": "zavtraki",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 134,
+        "fields": {
+            "text": "Обеды",
+            "slug": "obedy",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 135,
+        "fields": {
+            "text": "Ужины",
+            "slug": "uzhiny",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 136,
+        "fields": {
+            "text": "Закуски",
+            "slug": "zakuski",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 137,
+        "fields": {
+            "text": "Супы и бульоны",
+            "slug": "supy-i-bulony",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 138,
+        "fields": {
+            "text": "Праздничные блюда",
+            "slug": "prazdnichnye-bliuda",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 139,
+        "fields": {
+            "text": "Выпечка",
+            "slug": "vypechka",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 140,
+        "fields": {
+            "text": "Национальные кухни",
+            "slug": "natsionalnye-kukhni",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 141,
+        "fields": {
+            "text": "Здоровое питание",
+            "slug": "zdorovoe-pitanie",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 142,
+        "fields": {
+            "text": "Кулинарные советы",
+            "slug": "kulinarnye-sovety",
+            "category": 10
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 143,
+        "fields": {
+            "text": "Экологические проблемы",
+            "slug": "ekologicheskie-problemy",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 144,
+        "fields": {
+            "text": "Охрана природы",
+            "slug": "okhrana-prirody",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 145,
+        "fields": {
+            "text": "Виды растений",
+            "slug": "vidy-rastenii",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 146,
+        "fields": {
+            "text": "Виды животных",
+            "slug": "vidy-zhivotnykh",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 147,
+        "fields": {
+            "text": "Биоразнообразие",
+            "slug": "bioraznoobrazie",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 148,
+        "fields": {
+            "text": "Экологические катастрофы",
+            "slug": "ekologicheskie-katastrofy",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 149,
+        "fields": {
+            "text": "Энергосбережение",
+            "slug": "energosberezhenie",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 150,
+        "fields": {
+            "text": "Утилизация отходов",
+            "slug": "utilizatsiia-otkhodov",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 151,
+        "fields": {
+            "text": "Переработка материалов",
+            "slug": "pererabotka-materialov",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 152,
+        "fields": {
+            "text": "Экологически чистые технологии",
+            "slug": "ekologicheski-chistye-tekhnologii",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 153,
+        "fields": {
+            "text": "Загрязнение водных ресурсов",
+            "slug": "zagriaznenie-vodnykh-resursov",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 154,
+        "fields": {
+            "text": "Глобальное потепление",
+            "slug": "globalnoe-poteplenie",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 155,
+        "fields": {
+            "text": "Охраняемые природные территории",
+            "slug": "okhraniaemye-prirodnye-territorii",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 156,
+        "fields": {
+            "text": "Экологические активисты",
+            "slug": "ekologicheskie-aktivisty",
+            "category": 11
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 157,
+        "fields": {
+            "text": "Женская мода",
+            "slug": "zhenskaia-moda",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 158,
+        "fields": {
+            "text": "Мужская мода",
+            "slug": "muzhskaia-moda",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 159,
+        "fields": {
+            "text": "Детская мода",
+            "slug": "detskaia-moda",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 160,
+        "fields": {
+            "text": "Вечерние наряды",
+            "slug": "vechernie-nariady",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 161,
+        "fields": {
+            "text": "Спортивный стиль",
+            "slug": "sportivnyi-stil",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 162,
+        "fields": {
+            "text": "Уличная мода",
+            "slug": "ulichnaia-moda",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 163,
+        "fields": {
+            "text": "Винтаж",
+            "slug": "vintazh",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 164,
+        "fields": {
+            "text": "Мода на аксессуары",
+            "slug": "moda-na-aksessuary",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 165,
+        "fields": {
+            "text": "Косметика и уход за кожей",
+            "slug": "kosmetika-i-ukhod-za-kozhei",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 166,
+        "fields": {
+            "text": "Парфюмерия",
+            "slug": "parfiumeriia",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 167,
+        "fields": {
+            "text": "Мода для беременных",
+            "slug": "moda-dlia-beremennykh",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 168,
+        "fields": {
+            "text": "Дизайнерская одежда",
+            "slug": "dizainerskaia-odezhda",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 169,
+        "fields": {
+            "text": "Мода на обувь",
+            "slug": "moda-na-obuv",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 170,
+        "fields": {
+            "text": "Мода на сумки",
+            "slug": "moda-na-sumki",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 171,
+        "fields": {
+            "text": "Тренды и модные направления",
+            "slug": "trendy-i-modnye-napravleniia",
+            "category": 12
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 172,
+        "fields": {
+            "text": "Психологические тесты",
+            "slug": "psikhologicheskie-testy",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 173,
+        "fields": {
+            "text": "Эмоциональный интеллект",
+            "slug": "emotsionalnyi-intellekt",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 174,
+        "fields": {
+            "text": "Личностный рост",
+            "slug": "lichnostnyi-rost",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 175,
+        "fields": {
+            "text": "Мотивация",
+            "slug": "motivatsiia",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 176,
+        "fields": {
+            "text": "Самооценка и самопризнание",
+            "slug": "samootsenka-i-samopriznanie",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 177,
+        "fields": {
+            "text": "Психотерапия",
+            "slug": "psikhoterapiia",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 178,
+        "fields": {
+            "text": "Стресс и его управление",
+            "slug": "stress-i-ego-upravlenie",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 179,
+        "fields": {
+            "text": "Депрессия и тревожность",
+            "slug": "depressiia-i-trevozhnost",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 180,
+        "fields": {
+            "text": "Методы релаксации",
+            "slug": "metody-relaksatsii",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 181,
+        "fields": {
+            "text": "Медитация и майндфулнесс",
+            "slug": "meditatsiia-i-maindfulness",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 182,
+        "fields": {
+            "text": "Самопомощь и самовнушение",
+            "slug": "samopomoshch-i-samovnushenie",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 183,
+        "fields": {
+            "text": "Психология общения",
+            "slug": "psikhologiia-obshcheniia",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 184,
+        "fields": {
+            "text": "Психология успеха",
+            "slug": "psikhologiia-uspekha",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 185,
+        "fields": {
+            "text": "Саморазвитие через чтение",
+            "slug": "samorazvitie-cherez-chtenie",
+            "category": 13
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 186,
+        "fields": {
+            "text": "Автомобильные новинки",
+            "slug": "avtomobilnye-novinki",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 187,
+        "fields": {
+            "text": "Тюнинг и модификации",
+            "slug": "tiuning-i-modifikatsii",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 188,
+        "fields": {
+            "text": "Автосервис и ремонт",
+            "slug": "avtoservis-i-remont",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 189,
+        "fields": {
+            "text": "Автозапчасти",
+            "slug": "avtozapchasti",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 190,
+        "fields": {
+            "text": "Электромобили",
+            "slug": "elektromobili",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 191,
+        "fields": {
+            "text": "Классические автомобили",
+            "slug": "klassicheskie-avtomobili",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 192,
+        "fields": {
+            "text": "Мотоциклетный спорт",
+            "slug": "mototsikletnyi-sport",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 193,
+        "fields": {
+            "text": "Круизеры",
+            "slug": "kruizery",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 194,
+        "fields": {
+            "text": "Спортивные мотоциклы",
+            "slug": "sportivnye-mototsikly",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 195,
+        "fields": {
+            "text": "Туристические мотоциклы",
+            "slug": "turisticheskie-mototsikly",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 196,
+        "fields": {
+            "text": "Мотоэкипировка",
+            "slug": "motoekipirovka",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 197,
+        "fields": {
+            "text": "Мотособытия и выставки",
+            "slug": "motosobytiia-i-vystavki",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 198,
+        "fields": {
+            "text": "Путешествия на мотоцикле",
+            "slug": "puteshestviia-na-mototsikle",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 199,
+        "fields": {
+            "text": "Безопасность на дороге",
+            "slug": "bezopasnost-na-doroge",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 200,
+        "fields": {
+            "text": "Водители и их опыт",
+            "slug": "voditeli-i-ikh-opyt",
+            "category": 14
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 201,
+        "fields": {
+            "text": "Дизайн интерьера",
+            "slug": "dizain-interera",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 202,
+        "fields": {
+            "text": "Декорирование",
+            "slug": "dekorirovanie",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 203,
+        "fields": {
+            "text": "Уборка и уход за домом",
+            "slug": "uborka-i-ukhod-za-domom",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 204,
+        "fields": {
+            "text": "Мебель и аксессуары",
+            "slug": "mebel-i-aksessuary",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 205,
+        "fields": {
+            "text": "Ремонт и строительство",
+            "slug": "remont-i-stroitelstvo",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 206,
+        "fields": {
+            "text": "Садоводство и огородничество",
+            "slug": "sadovodstvo-i-ogorodnichestvo",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 207,
+        "fields": {
+            "text": "Домашний уют",
+            "slug": "domashnii-uiut",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 208,
+        "fields": {
+            "text": "Хранение вещей",
+            "slug": "khranenie-veshchei",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 209,
+        "fields": {
+            "text": "Экономия энергии",
+            "slug": "ekonomiia-energii",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 210,
+        "fields": {
+            "text": "Домашние химикаты и средства ухода",
+            "slug": "domashnie-khimikaty-i-sredstva-ukhoda",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 211,
+        "fields": {
+            "text": "Кухонные принадлежности",
+            "slug": "kukhonnye-prinadlezhnosti",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 212,
+        "fields": {
+            "text": "Семейные традиции",
+            "slug": "semeinye-traditsii",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 213,
+        "fields": {
+            "text": "Отдых дома",
+            "slug": "otdykh-doma",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 214,
+        "fields": {
+            "text": "Работа в домашних условиях",
+            "slug": "rabota-v-domashnikh-usloviiakh",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 215,
+        "fields": {
+            "text": "Домашние животные и их уход",
+            "slug": "domashnie-zhivotnye-i-ikh-ukhod",
+            "category": 15
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 216,
+        "fields": {
+            "text": "Гражданские права и обязанности",
+            "slug": "grazhdanskie-prava-i-obiazannosti",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 217,
+        "fields": {
+            "text": "Уголовное право",
+            "slug": "ugolovnoe-pravo",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 218,
+        "fields": {
+            "text": "Семейное право",
+            "slug": "semeinoe-pravo",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 219,
+        "fields": {
+            "text": "Трудовое право",
+            "slug": "trudovoe-pravo",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 220,
+        "fields": {
+            "text": "Налоговое право",
+            "slug": "nalogovoe-pravo",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 221,
+        "fields": {
+            "text": "Корпоративное право",
+            "slug": "korporativnoe-pravo",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 222,
+        "fields": {
+            "text": "Интеллектуальная собственность",
+            "slug": "intellektualnaia-sobstvennost",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 223,
+        "fields": {
+            "text": "Международное право",
+            "slug": "mezhdunarodnoe-pravo",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 224,
+        "fields": {
+            "text": "Защита прав потребителей",
+            "slug": "zashchita-prav-potrebitelei",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 225,
+        "fields": {
+            "text": "Административное право",
+            "slug": "administrativnoe-pravo",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 226,
+        "fields": {
+            "text": "Судебные процессы",
+            "slug": "sudebnye-protsessy",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 227,
+        "fields": {
+            "text": "Правовая консультация",
+            "slug": "pravovaia-konsultatsiia",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 228,
+        "fields": {
+            "text": "Юридические услуги",
+            "slug": "iuridicheskie-uslugi",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 229,
+        "fields": {
+            "text": "Законодательные изменения",
+            "slug": "zakonodatelnye-izmeneniia",
+            "category": 16
+        }
+    },
+    {
+        "model": "questions.tag",
+        "pk": 230,
+        "fields": {
+            "text": "Судебная практика",
+            "slug": "sudebnaia-praktika",
+            "category": 16
+        }
+    }
+]
