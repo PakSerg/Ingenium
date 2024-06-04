@@ -6,7 +6,8 @@ from users.models import User
 class QuestionService: 
     @staticmethod
     def get_published_questions_sorted_by_votes(count: int = None) -> QuerySet[Question]: 
-        questions = Question.published.order_by('votes')
+        questions = Question.published.order_by('-votes_count')
+
         if count:
             questions = questions[:count]
         return questions 

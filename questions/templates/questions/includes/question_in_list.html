@@ -1,30 +1,56 @@
-<div class="card py-2 px-5 ms-4 mb-3">
-    <div class="card-body">
-        <div class="mt-2 mb-4">
-            <h5 class="h3 font-pt-serif"><a href="{{ question.get_absolute_url }}" style="text-decoration: none; color: black;">{{ question.title }}</a></h5>
-        </div>
+<div class="d-flex mb-4 shadow-sm">
 
-        <div class="mt-2 mb-4">
-            <p class="card-text font-noto-sans">{{ question.content | truncatewords_html:15 }}</p>
+    <div class="text-center pt-4">
+        <div class="mb-2 text-muted">
+            <span class="d-block">{{ question.votes_count }}</span>
+            <small>голосов</small>
         </div>
+        <div class="mb-2 text-muted">
+            <span class="d-block">{{ question.answers_count }}</span>
+            <small>ответов</small>
+        </div>
+    </div>
 
-        <p class="my-0">Категория: 
-            <a class="card-link link-offset-2 link-offset-2-hover link-underline link-underline-opacity-50 link-underline-opacity-75-hover" href="{{ question.category.get_absolute_url }}">
-                {{ question.category }}
-            </a>
-        </p>
-        
-        {% if question.tags.all %}
-            <p class="mb-1">Теги: 
-                {% for tag in question.tags.all %}
-                    <a href="{{ tag.get_absolute_url }}" class="card-link link-offset-2 link-offset-2-hover link-underline link-underline-opacity-50 link-underline-opacity-75-hover">{{ tag.text }}</a>{% if not forloop.last %}, {% endif %}
-                {% endfor %}
+    <div class="card py-1 px-4 border-0 flex-grow-1">
+        <div class="card-body">
+            <div class="mb-1">
+                <h5 class="h4 font-pt-serif">
+                    <a href="{{ question.get_absolute_url }}" class="text-dark text-decoration-none">
+                        {{ question.title }}
+                    </a>
+                </h5>
+            </div>
+
+            <div class="mb-1">
+                <p class="card-text font-noto-sans">
+                    {{ question.content | truncatewords_html:20 }}
+                </p>
+            </div>
+
+            <p class="my-0 text-secondary">
+                Категория:
+                <a class="card-link text-secondary" href="{{ question.category.get_absolute_url }}">
+                    {{ question.category }}
+                </a>
             </p>
-        {% endif %} 
 
-        <div class="mt-2">
-            <p class="card-text"><small class="text-body-secondary">{{ question.created_at | date:"d.m.Y H:i" }}</small></p>
+            {% if question.tags.all %}
+                <p class="my-0">
+                    <b>
+                        {% for tag in question.tags.all %}
+                            <a href="{{ tag.get_absolute_url }}" class="font-pt-serif text-secondary me-2">{{ tag.text }}</a>
+                        {% endfor %}
+                    </b>
+                </p>
+            {% endif %}
+
+            <div class="mt-1">
+                <p class="card-text">
+                    <small>
+                        <i class="far fa-clock"></i> {{ question.created_at | date:"d.m.Y H:i" }}
+                    </small>
+                </p>
+            </div>
         </div>
-
     </div>
 </div>

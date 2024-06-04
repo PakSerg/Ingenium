@@ -19,7 +19,7 @@
 
                 <div>
                     <div>
-                        <p class="font-jost h5">Спрашивает: {{ question.user.username }}</p>
+                        <p class="font-jost h5">Автор вопроса: {{ question.user.username }}</p>
                     </div>
 
                     <div>
@@ -33,10 +33,10 @@
                     
                     <div class="ms-3 mt-4 me-4 text-center">
                         <div class="mb-1">
-                            <input data-action="voteUp" type="radio" 
+                            <input type="radio" 
                             class="btn-check vote-button" id="btnVoteUp" 
                             name="vote" autocomplete="off"
-                            {% if user_vote and user_vote.is_up %}checked{% endif %}>
+                            {% if user_vote and user_vote.is_up %}checked data-action="deleteVote"{% else %}data-action="voteUp"{% endif %}>
 
                             <label class="btn btn-outline-dark" for="btnVoteUp"><p class="h5">↑</p></label>
                         </div>
@@ -49,7 +49,7 @@
                             <input data-action="voteDown" type="radio" 
                             class="btn-check vote-button" id="btnVoteDown" 
                             name="vote" autocomplete="off"
-                            {% if user_vote and user_vote.is_down %}checked{% endif %}>
+                            {% if user_vote and user_vote.is_down %}checked data-action="deleteVote"{% else %}data-action="voteDown"{% endif %}>
                             <label class="btn btn-outline-dark" for="btnVoteDown"><p class="h5">↓</p></label>
                         </div>
                     </div>
@@ -128,6 +128,26 @@
     </div>
 </div>
 
+
+<!-- Registration/Login Modal -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="authModalLabel">Вам нужно войти в систему</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Пожалуйста, <a href="{% url 'users:login' %}">войдите в систему</a> или <a href="{% url 'users:register' %}">зарегистрируйтесь</a>, чтобы проголосовать.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 {% endblock %}
 
 {% block domready %} 
@@ -147,6 +167,22 @@ const BUTTON_IDS = {
     buttonVoteUp: "btnVoteUp", 
     buttonVoteDown: "btnVoteDown"
 }
+
+const actionButtons = document.querySelectorAll('.vote-button');
+actionButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const action = button.dataset.action;
+
+        const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}" === "true";
+        if (isAuthenticated) {
+            handleVote(action);
+            changeButtonState(button);
+        } else {
+            showRegistrationBanner();
+            uncheckAllButtons(actionButtons);
+        }
+    });
+});
 
 async function handleVote(action) {
     try {
@@ -222,14 +258,19 @@ function changeButtonState(button) {
     }
 }
 
-const actionButtons = document.querySelectorAll('.vote-button');
-actionButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const action = button.dataset.action;
-        handleVote(action);
-        changeButtonState(button);
+function showRegistrationBanner() {
+    const authModal = new bootstrap.Modal(document.getElementById('authModal'));
+    authModal.show();
+}
+
+function uncheckAllButtons(buttons) 
+{
+    buttons.forEach(button => {
+        button.checked = false;
     });
-});
+}
+
+
 </script>
 
 {% endblock %}

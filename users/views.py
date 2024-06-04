@@ -1,18 +1,20 @@
 from django.shortcuts import redirect
-from django.contrib.auth  import login, authenticate, logout
+from django.contrib.auth  import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.views import View 
+from django.views import View
+from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.db import transaction
-from .forms import CreateUserForm, LoginForm, ProfileEditForm
+from django.core.mail import send_mail
+from .forms import CreateUserForm, LoginForm, ProfileEditForm, PasswordChangeForm
 from .services import AuthService
 from .models import User 
      
 
 class RegisterView(FormView):
-    template_name = 'users/auth/register.html' 
+    template_name = 'registration/register.html' 
     form_class = CreateUserForm 
     success_url = reverse_lazy('users:profile')
 
@@ -30,7 +32,7 @@ class RegisterView(FormView):
  
     
 class LoginView(FormView):
-    template_name = 'users/auth/login.html' 
+    template_name = 'registration/login.html' 
     form_class = LoginForm
     success_url = reverse_lazy('users:profile')
 
@@ -78,9 +80,30 @@ class ProfileEditView(FormView):
             user.image = image_data
 
         user.save()
-
-
         return super().form_valid(form)
     
 
+@method_decorator(login_required, name='dispatch')
+class PasswordChangeView(FormView):
+    template_name = 'registration/password_change.html'
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('users:profile')
 
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs() 
+        form_kwargs['user'] = self.request.user
+        return form_kwargs
+
+    def form_valid(self, form):
+        self.request.user = form.save()
+        update_session_auth_hash(self.request, self.request.user)
+        return super().form_valid(form)
+    
+
+@method_decorator(login_required, name='dispatch')
+class PasswordResetView(TemplateView): 
+    template_name = 'registration/password_reset_form.html'
+
+    def get(self, request, *args, **kwargs):
+        
+        return super().get(request, *args, **kwargs)

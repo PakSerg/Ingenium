@@ -50,9 +50,17 @@
                 <div class="mb-3">
                     {{ form.image | as_crispy_field }}
                 </div>
-                <button type="submit" class="btn btn-dark small-margin-top">Сохранить</button>
+                <button type="submit" class="btn btn-dark mt-1">Сохранить</button>
 
               </form>
+              
+            <div class="mt-3">
+                <button class="btn btn-dark">
+                    <a href="{% url 'users:password_change' %}" style="color: white;" class="no-text-decoration">
+                        Сменить пароль
+                    </a>
+                </button>
+            </div>
           </div>
         
 
