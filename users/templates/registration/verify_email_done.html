@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Регистрация{% endblock title %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="mb-3">
+            <h2>Верификация электронной почты</h2>
+        </div>
+        <div>
+            <p>Мы отправили на вашу почту письмо. Для завершения регистрации перейдите по ссылке в письме</p>
+            <p>Если письмо не пришло, проверьте папку "Спам"</p>
+        </div>
+    </div>
+{% endblock content %}
