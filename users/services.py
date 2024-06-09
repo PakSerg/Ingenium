@@ -4,12 +4,11 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.tokens import default_token_generator as token_generator
 from django.utils import timezone
+from django.contrib.sites.models import Site
 from .models import User
 
-token_generator: PasswordResetTokenGenerator
 
 class AuthService:
 
@@ -23,7 +22,7 @@ class AuthService:
 
     @staticmethod
     def register_user(username: str, email: str, raw_password: str, is_active: bool = True) -> User:
-        new_user = User.objects.create(username=username, email=email)
+        new_user = User.objects.create(username=username, email=email, is_active=is_active)
         new_user.set_password(raw_password)
         new_user.save()
         return new_user
@@ -38,9 +37,23 @@ class AuthService:
 
 
 class UserService():
+
+    @staticmethod 
     def get_user_by_id(user_id: int) -> User | None:
         return User.objects.get(pk=user_id)
     
+    @staticmethod 
+    def delete_inactive_users_with_email(email: str) -> None: 
+        User.objects.filter(is_active=False, email=email).delete()
+
+    @staticmethod 
+    def delete_inactive_users_with_username(username: str) -> None: 
+        User.objects.filter(is_active=False, username=username).delete()
+    
+    @staticmethod 
+    def delete_all_inactive_users() -> None: 
+        time_limit = timezone.now() - timedelta(minutes=30)
+        User.objects.filter(is_active=False, date_joined__lt=time_limit).delete()
 
 
     
@@ -48,23 +61,20 @@ class UserService():
 class VerifyMailingService():
 
     @staticmethod
-    def send_email_for_verification(request, user: User) -> None:
-        current_site = get_current_site(request)
+    def send_verification_email(user_id: int) -> None:
+        user = UserService.get_user_by_id(user_id)
+        current_site = Site.objects.get_current()
         context = {
             'user': user,
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': token_generator.make_token(user),
         }
-        message = render_to_string( template_name='registration/verify_email.html', 
+        message = render_to_string(template_name='registration/verify_email.html', 
                                    context=context)
         email = EmailMessage(subject='Верификация электронной почты',
                              body=message, 
                              to=[user.email])
+        
         email.send()
 
-
-
-    
-
-    

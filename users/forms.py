@@ -1,40 +1,50 @@
 from django import forms 
 from .models import User 
-from .services import AuthService
+from .services import AuthService, UserService
 
  
-class CreateUserForm(forms.ModelForm):
+class CreateUserForm(forms.Form):
+    username = forms.CharField(
+        label='Имя пользователя',
+        widget=forms.TextInput(attrs={'placeholder': 'Введите ваше имя'}),
+        max_length=150
+    )
+    email = forms.EmailField(
+        label='Электронная почта',
+        widget=forms.EmailInput(attrs={'placeholder': 'Ваша электронная почта'})
+    )
+    password = forms.CharField(
+        label='Пароль',
+        min_length=8,
+        widget=forms.PasswordInput(attrs={'placeholder': 'Придумайте пароль (не менее 8 символов)'})
+    )
+    password2 = forms.CharField(
+        label='',
+        min_length=8,
+        widget=forms.PasswordInput(attrs={'placeholder': 'Повторите пароль'})
+    )
 
-    class Meta: 
-        model = User 
-        fields = ['username', 'email'] 
-        labels = {
-            'username': 'Имя пользователя',
-            'email': 'Электронная почта',
-        }
-        widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'Введите ваше имя'}), 
-            'email': forms.EmailInput(attrs={'placeholder': 'Ваша электронная почта'}), 
-            'password': forms.PasswordInput(attrs={'placeholder': 'Придумайте надёжный пароль'})
-        }
-        help_texts = {
-            'username': ''
-        }
+    def clean_password2(self):
+        password = self.cleaned_data.get('password')
+        password2 = self.cleaned_data.get('password2')
+        if password and password2 and password != password2:
+            raise forms.ValidationError('Пароли не совпадают')
+        return password2
 
-    password = forms.CharField(label='Пароль', min_length=8, widget=forms.PasswordInput(attrs={'placeholder': 'Придумайте пароль (не менее 8 символов)'}))
-    password2 = forms.CharField(label='', min_length=8, widget=forms.PasswordInput(attrs={'placeholder': 'Повторите пароль'})) 
-    
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if AuthService.email_exists(email):
-            raise forms.ValidationError('Пользователь с таким адресом электронной почты уже существует')
-        return email 
-    
-    def clean_username(self): 
-        username = self.cleaned_data['username'] 
-        if AuthService.username_exists(username):
-            raise forms.ValidationError('Пользователь с таким именем уже существует') 
-        return username 
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        username = cleaned_data.get('username')
+
+        if email:
+            UserService.delete_inactive_users_with_email(email)
+            if AuthService.email_exists(email):
+                raise forms.ValidationError('Пользователь с такой почтой уже существует')
+        if username:
+            if AuthService.username_exists(username):
+                raise forms.ValidationError('Пользователь с таким именем уже существует')
+
+        return cleaned_data
     
 
 class LoginForm(forms.Form):

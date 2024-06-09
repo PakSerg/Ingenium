@@ -12,8 +12,9 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
 from django.contrib.auth.tokens import default_token_generator as token_generator
 from .forms import CreateUserForm, LoginForm, ProfileEditForm, PasswordChangeForm
-from .services import AuthService, VerifyMailingService, UserService
+from .services import AuthService, UserService
 from .models import User
+from .tasks import send_verification_email_task
 
 
 class RegisterView(FormView):
@@ -29,8 +30,8 @@ class RegisterView(FormView):
         password = cd['password']
 
         user = AuthService.register_user(username, email, password, is_active=False) 
-        VerifyMailingService.send_email_for_verification(self.request, user)
-        
+        send_verification_email_task.delay(user.pk)
+
         return super().form_valid(form)
     
 
