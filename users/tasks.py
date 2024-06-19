@@ -12,5 +12,4 @@ def send_verification_email_task(self, user_id: int) -> None:
     
 @app.task 
 def delete_inactive_user_task() -> None: 
-    print('выполнились')
     UserService.delete_all_inactive_users()

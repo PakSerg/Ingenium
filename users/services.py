@@ -48,8 +48,7 @@ class UserService():
     
     @staticmethod 
     def delete_all_inactive_users() -> None: 
-        time_limit = timezone.now() - timedelta(minutes=30)
-        User.objects.filter(is_active=False, date_joined__lt=time_limit).delete()
+        User.objects.filter(is_active=False).delete()
 
 
     
