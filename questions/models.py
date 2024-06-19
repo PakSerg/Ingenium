@@ -22,7 +22,7 @@ class Category(models.Model):
     
 
 class Tag(models.Model): 
-    text = models.CharField(max_length=20, null=False, unique=True)
+    text = models.CharField(max_length=50, null=False, unique=True)
     slug = models.SlugField(unique=True, null=False)
     category = models.ForeignKey(Category, null=False, default=1, on_delete=models.CASCADE, 
                                  related_name='tags')

@@ -45,10 +45,6 @@ class UserService():
     @staticmethod 
     def delete_inactive_users_with_email(email: str) -> None: 
         User.objects.filter(is_active=False, email=email).delete()
-
-    @staticmethod 
-    def delete_inactive_users_with_username(username: str) -> None: 
-        User.objects.filter(is_active=False, username=username).delete()
     
     @staticmethod 
     def delete_all_inactive_users() -> None: 
@@ -76,5 +72,5 @@ class VerifyMailingService():
                              body=message, 
                              to=[user.email])
         
-        email.send()
+        email.send(fail_silently=False)
 

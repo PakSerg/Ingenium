@@ -1,7 +1,16 @@
-from celery import shared_task
+from smtplib import SMTPException
+from ingenium.celery import app
 from .services import UserService, VerifyMailingService
 
 
-@shared_task
-def send_verification_email_task(user_id: int) -> None: 
-    VerifyMailingService.send_verification_email(user_id)
+@app.task(bind=True, max_retries=3)
+def send_verification_email_task(self, user_id: int) -> None: 
+    try:
+        VerifyMailingService.send_verification_email(user_id)
+    except SMTPException as ex: 
+        raise self.retry(exc=ex, countdown=5)  
+    
+@app.task 
+def delete_inactive_user_task() -> None: 
+    print('выполнились')
+    UserService.delete_all_inactive_users()

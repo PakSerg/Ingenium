@@ -152,8 +152,15 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-
-
-# media files 
+# Media files 
 media/users/*
-!media/users/default_profile_image.png
+!media/users/default_profile_image.png 
+
+# Celery logfiles 
+celerybeat-schedule/
+celerybeat-schedule.bak
+celerybeat-schedule.dat
+celerybeat-schedule.dir 
+
+# Postgres volume 
+postgres_data/

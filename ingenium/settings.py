@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wxv1_i05jibw7wz%h3%4_%e9n1a^h8mfo$_)+_j4-hhw)fwq%='
+SECRET_KEY = "django-insecure-wxv1_i05jibw7wz%h3%4_%e9n1a^h8mfo$_)+_j4-hhw)fwq%="
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True 
 
 ALLOWED_HOSTS = []
 
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
 
     'crispy_forms', 
     'crispy_bootstrap4',
@@ -89,8 +93,12 @@ WSGI_APPLICATION = 'ingenium.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'), 
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'), 
+        'HOST': "localhost", 
+        'PORT': "5439" 
     }
 }
 
@@ -151,7 +159,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # SMTP
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'sergegnabri2005@gmail.com'
-EMAIL_HOST_PASSWORD = 'ovpvoxpvhxnekcfm'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'sergegnabri2005@gmail.com'
@@ -159,7 +167,9 @@ DEFAULT_FROM_EMAIL = 'sergegnabri2005@gmail.com'
 
 # Redis 
 REDIS_HOST = '127.0.0.1' 
-REDIS_PORT = '6379' 
+REDIS_PORT = '6390' 
+
+# Celery
 CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0' 
 CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600} 
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0' 

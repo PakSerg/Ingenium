@@ -39,10 +39,10 @@ class CreateUserForm(forms.Form):
         if email:
             UserService.delete_inactive_users_with_email(email)
             if AuthService.email_exists(email):
-                raise forms.ValidationError('Пользователь с такой почтой уже существует')
+                self.add_error('email', forms.ValidationError('Пользователь с такой почтой уже существует'))
         if username:
             if AuthService.username_exists(username):
-                raise forms.ValidationError('Пользователь с таким именем уже существует')
+                self.add_error('username', forms.ValidationError('Пользователь с таким именем уже существует'))
 
         return cleaned_data
     
