@@ -1,4 +1,3 @@
-from django.forms import ValidationError
 from django.shortcuts import redirect
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required

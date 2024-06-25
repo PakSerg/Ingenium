@@ -1,9 +1,28 @@
 from django.db.models.query import QuerySet
-from .models import Question, Category, Answer 
+from .models import Question, Category, Answer, Tag 
 from users.models import User
 
 
 class QuestionService: 
+    @staticmethod
+    def get_question_by_id(question_id: int) -> Question: 
+        return Question.objects.get(pk=question_id)
+    
+    @staticmethod 
+    def create_and_publish_question(title: str, 
+                        category: Category, 
+                        user: User, 
+                        content: str = None, 
+                        tags: QuerySet[Tag] = None) -> Question: 
+        new_question = Question(title=title, 
+                                category=category, 
+                                user=user,
+                                content=content, 
+                                status=Question.Status.PUBLISHED)
+        new_question.save()
+        new_question.tags.set(tags)
+        return new_question
+    
     @staticmethod
     def get_published_questions_sorted_by_votes(count: int = None) -> QuerySet[Question]: 
         questions = Question.published.order_by('-votes_count')
@@ -14,7 +33,7 @@ class QuestionService:
     
     @staticmethod 
     def get_published_questions_for_category(category_slug: str, count: int = None) -> QuerySet[Question]: 
-        questions = Question.published.filter(category=CategoryService.get_by_slug(category_slug))
+        questions = Question.published.filter(category=CategoryService.get_category_by_slug(category_slug))
         return questions
     
     @staticmethod 
@@ -24,9 +43,7 @@ class QuestionService:
                                        created_at__day=day, 
                                        slug=question_slug).first()
     
-    @staticmethod
-    def get_question_by_id(question_id: int) -> Question: 
-        return Question.objects.get(pk=question_id)
+    
 
 
 class CategoryService: 
@@ -36,7 +53,7 @@ class CategoryService:
         return categories
     
     @staticmethod 
-    def get_by_slug(slug: str) -> Category: 
+    def get_category_by_slug(slug: str) -> Category: 
         return Category.objects.get(slug=slug)
     
 

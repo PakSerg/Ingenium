@@ -10,7 +10,7 @@
 
 <div class="container">
     <div class="container-fluid">
-        <div class="row  align-items-start">
+        <div class="row align-items-start">
 
             {% show_sidebar_categories %}
         
@@ -26,15 +26,15 @@
                     {% show_question_in_list question %}
                     
                 {% empty %}
-                <div class="card text-center">
-                    <div class="card-header">
-                        <h5 class="card-title">В этой категории пока нет вопросов...</h5>
+                <div class="text-center">
+                    <div class="mb-4">
+                        <p class="h3 font-jost">В этой категории пока нет вопросов</p>
+                        <p>Будьте первыми</p>
                     </div>
-                    <div class="card-body">
-                      <p class="card-text">Будьте первыми 🙃</p>
-                      <a href="#" class="btn btn-dark">Задать свой вопрос</a>
+                    <div>
+                        <a href="#" class="btn btn-dark">Задать свой вопрос</a>
                     </div>
-                  </div>
+                </div>
                 {% endfor %}
 
             </div>

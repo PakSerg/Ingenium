@@ -1,11 +1,14 @@
-from typing import Any
 from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from .services import QuestionService, CategoryService, AnswerService
 from votes.services import VoteForQuestionService
-from .forms import CreateAnswerForm
+from .forms import CreateAnswerForm, CreateQuestionForm
+from .models import Tag
 
 
 class AllQuestionsView(View): 
@@ -68,11 +71,30 @@ class SingleQuestionView(View):
         return render(request, self.template_name, context) 
     
 
+@method_decorator(login_required, name='dispatch')
+class CreateQuestionView(FormView): 
+    template_name = 'questions/create_question.html' 
+    form_class = CreateQuestionForm
+
+    def form_valid(self, form: CreateQuestionForm) -> HttpResponse:
+        cd = form.cleaned_data
+        title = cd['title']
+        content = cd['content']
+        category = cd['category'] 
+        tags = cd['tags']
+
+        user = self.request.user
+
+        QuestionService.create_and_publish_question(title, category, user, content, tags)
+
+        return redirect('questions:all_questions')
+    
+
 class CategoryView(View): 
     template_name = 'questions/questions_in_category.html' 
 
     def get(self, request, category_slug: str): 
-        category = CategoryService.get_by_slug(category_slug)
+        category = CategoryService.get_category_by_slug(category_slug)
         questions = QuestionService.get_published_questions_for_category(category_slug)
         context = {
             'questions': questions, 
@@ -81,7 +103,10 @@ class CategoryView(View):
         return render(request, self.template_name, context)  
     
 
-    
-
 class TagView(View): 
     ...
+
+
+def get_tags(request, category_id: int) -> JsonResponse:
+    tags = Tag.objects.filter(category_id=category_id).values('id', 'text')
+    return JsonResponse(list(tags), safe=False)
