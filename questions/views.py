@@ -5,7 +5,8 @@ from django.views.generic import TemplateView, FormView
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .services import QuestionService, CategoryService, AnswerService
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .services import QuestionService, CategoryService, AnswerService, get_paginated_collection
 from votes.services import VoteForQuestionService
 from .forms import CreateAnswerForm, CreateQuestionForm
 from .models import Tag
@@ -16,10 +17,15 @@ class AllQuestionsView(View):
 
     def get(self, request): 
         questions = QuestionService.get_published_questions_sorted_by_votes() 
+
+        questions = get_paginated_collection(request, 
+                                             collection=questions, 
+                                             count_per_page=10)
+
         context = {
             'questions': questions,
         }
-        return render(request, self.template_name, context) 
+        return render(request, self.template_name, context)
 
 
 class AllCategoriesView(TemplateView): 
@@ -96,6 +102,11 @@ class CategoryView(View):
     def get(self, request, category_slug: str): 
         category = CategoryService.get_category_by_slug(category_slug)
         questions = QuestionService.get_published_questions_for_category(category_slug)
+
+        questions = get_paginated_collection(request, 
+                                             collection=questions, 
+                                             count_per_page=10)
+
         context = {
             'questions': questions, 
             'category': category,
@@ -107,6 +118,7 @@ class TagView(View):
     ...
 
 
-def get_tags(request, category_id: int) -> JsonResponse:
+def get_tags_view(request, category_id: int) -> JsonResponse:
     tags = Tag.objects.filter(category_id=category_id).values('id', 'text')
-    return JsonResponse(list(tags), safe=False)
+    return JsonResponse(list(tags), safe=False) 
+

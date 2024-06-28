@@ -19,6 +19,8 @@
                 {% for question in questions %}
                     {% show_question_in_list question %}
                 {% endfor %}
+                
+                {% include "pagination.html" with page=questions %}
             </div>
         </div>
     </div>

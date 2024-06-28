@@ -8,7 +8,7 @@ from unidecode import unidecode
 class Category(models.Model): 
     title = models.CharField(max_length=30, null=False, unique=True) 
     description = models.CharField(max_length=200, null=False, unique=True) 
-    slug = models.SlugField(null=False, default="", unique=True)
+    slug = models.SlugField(max_length=200, null=False, default="", unique=True)
 
     def __str__(self) -> str: 
         return f'{self.title}'
@@ -23,7 +23,7 @@ class Category(models.Model):
 
 class Tag(models.Model): 
     text = models.CharField(max_length=50, null=False, unique=True)
-    slug = models.SlugField(unique=True, null=False)
+    slug = models.SlugField(max_length=200, unique=True, null=False)
     category = models.ForeignKey(Category, null=False, default=1, on_delete=models.CASCADE, 
                                  related_name='tags')
     
@@ -48,11 +48,11 @@ class Question(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions') 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1, related_name='categories')
     title = models.CharField(max_length=120, blank=False, null=False) 
-    content = models.TextField(max_length=2000, blank=False, null=False) 
+    content = models.TextField(max_length=2000, blank=True, null=True) 
     created_at = models.DateTimeField(auto_now_add=True) 
     votes_count = models.IntegerField(default=0, null=False)
     answers_count = models.IntegerField(default=0, null=False)
-    slug = models.SlugField(null=False, default="", unique=True)
+    slug = models.SlugField(max_length=200, null=False, default="", unique=True)
     tags = models.ManyToManyField(Tag, related_name='questions', blank=True)
     status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
 

@@ -11,5 +11,5 @@ urlpatterns = [
     path('<int:year>/<int:month>/<int:day>/<slug:question_slug>/', SingleQuestionView.as_view(), name='single_question'), 
     path('<slug:category_slug>/', CategoryView.as_view(), name='category'), 
     path('<slug:tag_slug>/', TagView.as_view(), name='tag'), 
-    path('get_tags/<int:category_id>', get_tags, name='get_tags')
+    path('get_tags/<int:category_id>', get_tags_view, name='get_tags')
 ]

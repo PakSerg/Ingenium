@@ -26,7 +26,7 @@
                     {% show_question_in_list question %}
                     
                 {% empty %}
-                <div class="text-center">
+                <div>
                     <div class="mb-4">
                         <p class="h3 font-jost">В этой категории пока нет вопросов</p>
                         <p>Будьте первыми</p>
@@ -36,6 +36,12 @@
                     </div>
                 </div>
                 {% endfor %}
+
+                
+                {% if questions %}
+                    {% include "pagination.html" with page=questions %}
+                {% endif %}
+
 
             </div>
         </div>
