@@ -5,8 +5,7 @@ from django.views.generic import TemplateView, FormView
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .services import QuestionService, CategoryService, AnswerService, get_paginated_collection
+from .services import QuestionService, CategoryService, AnswerService, TagService, get_paginated_collection
 from votes.services import VoteForQuestionService
 from .forms import CreateAnswerForm, CreateQuestionForm
 from .models import Tag
@@ -101,7 +100,7 @@ class CategoryView(View):
 
     def get(self, request, category_slug: str): 
         category = CategoryService.get_category_by_slug(category_slug)
-        questions = QuestionService.get_published_questions_for_category(category_slug)
+        questions = QuestionService.get_published_questions_for_category(category)
 
         questions = get_paginated_collection(request, 
                                              collection=questions, 
@@ -115,7 +114,21 @@ class CategoryView(View):
     
 
 class TagView(View): 
-    ...
+    template_name = 'questions/questions_with_tag.html' 
+
+    def get(self, request, tag_slug: str): 
+        tag = TagService.get_tag_by_slug(tag_slug)
+        questions = QuestionService.get_published_questions_with_tag(tag)
+
+        questions = get_paginated_collection(request, 
+                                             collection=questions, 
+                                             count_per_page=10)
+
+        context = {
+            'questions': questions, 
+            'tag': tag,
+        }
+        return render(request, self.template_name, context)  
 
 
 def get_tags_view(request, category_id: int) -> JsonResponse:

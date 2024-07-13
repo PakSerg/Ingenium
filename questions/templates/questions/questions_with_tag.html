@@ -17,19 +17,17 @@
             <div class="col">
 
                 <div class="mb-4">
-                    <p class="h2 font-pt-serif">{{ category.title }} </p> 
-                    <div>
-                        <p class="font-noto-sans mt-3">{{ category.description }}</p>
-                    </div>
+                    <p class="h2 font-pt-serif">Тег: {{ tag.text }} </p> 
                 </div>
 
                 {% for question in questions %}
-                    {% show_question_in_list question %}
-                {% empty %}
 
-                <div class="mt-5">
-                    <div class="mb-3">
-                        <p class="h4 font-jost">В этой категории пока нет вопросов</p>
+                    {% show_question_in_list question %}
+                    
+                {% empty %}
+                <div>
+                    <div class="mb-4">
+                        <p class="h3 font-jost">В этой категории пока нет вопросов</p>
                         <p>Будьте первыми</p>
                     </div>
                     <div>
@@ -44,12 +42,8 @@
                 {% endif %}
 
             </div>
-            
         </div>
-        
     </div>
-
-    
 
 </div>
 

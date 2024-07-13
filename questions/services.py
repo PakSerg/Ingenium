@@ -33,9 +33,14 @@ class QuestionService:
         return questions 
     
     @staticmethod 
-    def get_published_questions_for_category(category_slug: str, count: int = None) -> QuerySet[Question]: 
-        questions = Question.published.filter(category=CategoryService.get_category_by_slug(category_slug))
-        return questions
+    def get_published_questions_for_category(category: Category, count: int = None) -> QuerySet[Question]: 
+        questions = Question.published.filter(category=category)
+        return questions if count == None else questions[:count]
+    
+    @staticmethod 
+    def get_published_questions_with_tag(tag: Tag, count: int = None) -> QuerySet[Question]: 
+        questions = Question.published.filter(tags=tag)
+        return questions if count == None else questions[:count]
     
     @staticmethod 
     def get_published_question(year: int, month: int, day: int, question_slug: str) -> Question | None: 
@@ -43,8 +48,6 @@ class QuestionService:
                                        created_at__month=month, 
                                        created_at__day=day, 
                                        slug=question_slug).first()
-    
-    
 
 
 class CategoryService: 
@@ -56,6 +59,12 @@ class CategoryService:
     @staticmethod 
     def get_category_by_slug(slug: str) -> Category: 
         return Category.objects.get(slug=slug)
+    
+
+class TagService: 
+    @staticmethod 
+    def get_tag_by_slug(slug: str) -> Tag: 
+        return Tag.objects.get(slug=slug)
     
 
 class AnswerService: 
