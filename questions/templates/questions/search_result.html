@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load questions_tags %}
+
+{% block title %}
+    Ingenium
+{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="container-fluid">
+        <div class="row  align-items-start">
+
+            {% show_sidebar_categories %}
+        
+            <div class="col">
+
+                <div class="mb-4 text-center">
+                    <p class="h2 font-pt-serif">Результаты поиска по запросу "{{ query }}"</p>
+                </div>
+
+                {% for question in questions %}
+                    {% show_question_in_list question %}
+                {% empty %}
+                <div class="mb-4 text-center">
+                    <p class="h4 font-noto-sans">Ничего не найдено...</p>
+                </div>
+                {% endfor %}
+                
+                {% if questions %}
+                    {% include "pagination.html" with page=questions %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

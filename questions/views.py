@@ -5,9 +5,9 @@ from django.views.generic import TemplateView, FormView
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .services import QuestionService, CategoryService, AnswerService, TagService, get_paginated_collection
+from .services import QuestionService, CategoryService, AnswerService, TagService, get_paginated_collection, SearchService
 from votes.services import VoteForQuestionService
-from .forms import CreateAnswerForm, CreateQuestionForm
+from .forms import CreateAnswerForm, CreateQuestionForm, SearchForm
 from .models import Tag
 
 
@@ -87,7 +87,6 @@ class CreateQuestionView(FormView):
         content = cd['content']
         category = cd['category'] 
         tags = cd['tags']
-
         user = self.request.user
 
         QuestionService.create_and_publish_question(title, category, user, content, tags)
@@ -120,15 +119,30 @@ class TagView(View):
         tag = TagService.get_tag_by_slug(tag_slug)
         questions = QuestionService.get_published_questions_with_tag(tag)
 
-        questions = get_paginated_collection(request, 
-                                             collection=questions, 
-                                             count_per_page=10)
+        questions = get_paginated_collection(request, collection=questions)
 
         context = {
             'questions': questions, 
             'tag': tag,
         }
-        return render(request, self.template_name, context)  
+        return render(request, self.template_name, context)   
+    
+
+class SearchView(View): 
+    def get(self, request): 
+        form = SearchForm(request.GET) 
+
+        if form.is_valid():
+            query = form.cleaned_data.get('query') 
+            questions = SearchService.get_questions_by_query(query)
+            paginated_questions = get_paginated_collection(self.request, collection=questions)
+            context = {
+                'query': query, 
+                'questions': paginated_questions
+            }
+            return render(request, 'questions/search_result.html', context) 
+        else: 
+            pass 
 
 
 def get_tags_view(request, category_id: int) -> JsonResponse:

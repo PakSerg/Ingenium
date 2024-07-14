@@ -3,7 +3,6 @@ from .models import Answer, Question
 
 
 class CreateAnswerForm(forms.ModelForm): 
-
     class Meta:
         model = Answer 
         fields = ['content'] 
@@ -16,7 +15,6 @@ class CreateAnswerForm(forms.ModelForm):
 
 
 class CreateQuestionForm(forms.ModelForm): 
-
     class Meta: 
         model = Question 
         fields = ['title', 'content', 'category', 'tags'] 
@@ -29,3 +27,7 @@ class CreateQuestionForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'style': 'height: 80px',})
         }
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=30, label='')

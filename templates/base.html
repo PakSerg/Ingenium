@@ -1,4 +1,6 @@
 {% load static %}
+{% load crispy_forms_tags %}
+{% load questions_tags %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -67,10 +69,8 @@
                 
 
             </ul>
-            <form class="d-flex ms-5 me-5" role="search">
-                <input class="form-control me-2" type="search" placeholder="Найти вопрос..." aria-label="Search">
-                <button class="btn btn-outline-light" type="submit">Поиск</button>
-            </form>
+            
+            {% show_search_form %}
         </div>
     </div>
 </nav>

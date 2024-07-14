@@ -1,5 +1,7 @@
 from django.db.models.query import QuerySet
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import TrigramSimilarity
 from .models import Question, Category, Answer, Tag 
 from users.models import User
 
@@ -67,6 +69,16 @@ class TagService:
         return Tag.objects.get(slug=slug)
     
 
+class SearchService: 
+    @staticmethod 
+    def get_questions_by_query(query: str) -> QuerySet[Question]: 
+        results = Question.published.annotate(
+            similarity=TrigramSimilarity('title', query), 
+        ).filter(similarity__gt=0.1).order_by('-similarity')
+
+        return results
+    
+
 class AnswerService: 
     @staticmethod 
     def create_answer(content: str, user: User, question: Question) -> Answer: 
@@ -75,8 +87,8 @@ class AnswerService:
         return new_answer
     
 
-def get_paginated_collection(request, collection: QuerySet, count_per_page: int): 
-    paginator = Paginator(collection, 10)
+def get_paginated_collection(request, collection: QuerySet, count_per_page: int = 10): 
+    paginator = Paginator(collection, count_per_page)
     page_number = request.GET.get('page', 1)
     try:
         collection = paginator.page(page_number)
