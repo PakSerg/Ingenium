@@ -1,6 +1,8 @@
+{% load crispy_forms_tags %}
+
 <form action="{% url 'questions:search' %}" method="GET" class="d-flex ms-5 me-5" role="search">
     <div>
-        {{ form.query }}
+        {{ form.query | as_crispy_field }}
     </div>
     <button class="btn btn-outline-light" type="submit">Поиск</button>
 </form>

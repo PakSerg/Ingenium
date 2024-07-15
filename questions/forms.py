@@ -30,4 +30,7 @@ class CreateQuestionForm(forms.ModelForm):
 
 
 class SearchForm(forms.Form):
-    query = forms.CharField(max_length=30, label='')
+    query = forms.CharField(max_length=30, label='', widget=forms.TextInput(attrs={
+        'placeholder': 'Найти вопрос...', 
+        'class': 'form-control me-2', 
+    }))
