@@ -5,6 +5,7 @@ from django.views.generic import TemplateView, FormView
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from questions.tasks import send_new_answer_notification_task
 from .services import QuestionService, CategoryService, AnswerService, TagService, get_paginated_collection, SearchService
 from votes.services import VoteForQuestionService
 from .forms import CreateAnswerForm, CreateQuestionForm, SearchForm
@@ -64,11 +65,17 @@ class SingleQuestionView(View):
         if form.is_valid(): 
             answer_content = form.cleaned_data['content'] 
             AnswerService.create_answer(answer_content, user, question) 
+            question.answers_count += 1
+
+            if question.user_id != user.pk and question.answers_count < 20:
+                send_new_answer_notification_task.delay(question.user_id, question.pk)
+
             return redirect('questions:single_question', 
                             year=question.created_at.year,
                             month=question.created_at.month, 
                             day=question.created_at.day, 
                             question_slug=question.slug)
+
         context = {
             'question': question,
             'form': form,

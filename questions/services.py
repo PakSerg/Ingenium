@@ -1,9 +1,12 @@
 from django.db.models.query import QuerySet
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.contrib.postgres.search import TrigramSimilarity
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from django.contrib.sites.models import Site
 from .models import Question, Category, Answer, Tag 
 from users.models import User
+from users.services import UserService
 
 
 class QuestionService: 
@@ -86,6 +89,26 @@ class AnswerService:
         new_answer.save()
         return new_answer
     
+
+class NotificationService: 
+    @staticmethod 
+    def send_new_answer_notification(recipient_user_id: int, question_id: int) -> None:
+        user = UserService.get_user_by_id(recipient_user_id)
+        question = QuestionService.get_question_by_id(question_id)
+        current_site = Site.objects.get_current()
+        context = {
+            'domain': current_site.domain,
+            'user': user,
+            'question': question
+        }
+        message = render_to_string(template_name='questions/new_answer_email.html', 
+                                   context=context)
+        email = EmailMessage(subject='Новый ответ на ваш вопрос',
+                             body=message, 
+                             to=[user.email])
+        email.content_subtype = 'html'
+        email.send(fail_silently=False)
+
 
 def get_paginated_collection(request, collection: QuerySet, count_per_page: int = 10): 
     paginator = Paginator(collection, count_per_page)

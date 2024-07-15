@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px;">
+    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border: 1px solid #e0e0e0;">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 style="font-size: 2.5em; font-weight: bold;">Ingenium</h1>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <p>Здравствуйте, <strong>{{ user.get_username }}!</strong></p>
+            <hr style="border: 0; border-top: 1px solid #e0e0e0;">
+            <p>Кто-то ответил на ваш вопрос "<strong>{{ question.title }}</strong>".</p>
+            <p>Пройдите по ссылке, чтобы посмотреть:</p>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="http://{{ domain }}{% url "questions:single_question" year=question.created_at.year month=question.created_at.month day=question.created_at.day question_slug=question.slug %}" style="display: inline-block; padding: 10px 20px; background-color: #000000; color: #ffffff; text-decoration: none; font-size: 1.2em; border-radius: 5px;">Посмотреть ответ</a>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <hr style="border: 0; border-top: 1px solid #e0e0e0;">
+            <p style="color: #777777;">&copy; 2024 Форум Ingenium. Все права защищены.</p>
+        </div>
+    </div>
+</body>
+</html>
