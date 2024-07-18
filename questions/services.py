@@ -1,4 +1,4 @@
-from django.db.models.query import QuerySet
+from django.db.models.query import QuerySet, Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.postgres.search import TrigramSimilarity
 from django.template.loader import render_to_string
@@ -79,11 +79,15 @@ class TagService:
 
 class SearchService: 
     @staticmethod 
-    def search_questions_by_query(query: str) -> QuerySet[Question]: 
+    def search_questions_by_query(query: str) -> QuerySet[Question]:
         results = Question.published.annotate(
             title_similarity=TrigramSimilarity('title', query),
-            body_similarity=TrigramSimilarity('body', query) 
-        ).filter(title_similarity__gt=0.1, body_similarity__gt=0.2).order_by('-similarity')
+            content_similarity=TrigramSimilarity('content', query)
+        ).filter(
+            Q(title_similarity__gt=0.1) | Q(content_similarity__gt=0.1)
+        ).order_by(
+            '-title_similarity', '-content_similarity'
+        )
 
         return results
     
