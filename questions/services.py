@@ -74,10 +74,11 @@ class TagService:
 
 class SearchService: 
     @staticmethod 
-    def get_questions_by_query(query: str) -> QuerySet[Question]: 
+    def search_questions_by_query(query: str) -> QuerySet[Question]: 
         results = Question.published.annotate(
-            similarity=TrigramSimilarity('title', query), 
-        ).filter(similarity__gt=0.1).order_by('-similarity')
+            title_similarity=TrigramSimilarity('title', query),
+            body_similarity=TrigramSimilarity('body', query) 
+        ).filter(title_similarity__gt=0.1, body_similarity__gt=0.2).order_by('-similarity')
 
         return results
     

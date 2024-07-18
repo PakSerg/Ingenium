@@ -141,7 +141,7 @@ class SearchView(View):
 
         if form.is_valid():
             query = form.cleaned_data.get('query') 
-            questions = SearchService.get_questions_by_query(query)
+            questions = SearchService.search_questions_by_query(query)
             paginated_questions = get_paginated_collection(self.request, collection=questions)
             context = {
                 'query': query, 
