@@ -33,11 +33,10 @@
                     
                     <div class="ms-3 mt-4 me-4 text-center">
                         <div class="mb-1">
-                            <input type="radio" 
+                            <input type="radio"
                             class="btn-check vote-button" id="btnVoteUp" 
                             name="vote" autocomplete="off"
                             {% if user_vote and user_vote.is_up %}checked data-action="deleteVote"{% else %}data-action="voteUp"{% endif %}>
-
                             <label class="btn btn-outline-dark" for="btnVoteUp"><p class="h5">↑</p></label>
                         </div>
 
@@ -46,7 +45,7 @@
                         </div>
                     
                         <div>
-                            <input data-action="voteDown" type="radio" 
+                            <input type="radio" 
                             class="btn-check vote-button" id="btnVoteDown" 
                             name="vote" autocomplete="off"
                             {% if user_vote and user_vote.is_down %}checked data-action="deleteVote"{% else %}data-action="voteDown"{% endif %}>
@@ -67,6 +66,20 @@
                     </div>
                 </div>
 
+                <!-- Similar questions -->
+                {% if similar_questions %}
+                <div class="mt-4">
+                    <h4 class="font-pt-serif">Похожие вопросы</h4>
+                    <div class="list-group">
+                        {% for similar_question in similar_questions %}
+                            <a href="{{ similar_question.get_absolute_url }}" class="list-group-item list-group-item-action">
+                                <p class="mb-1">{{ similar_question.title }}</p>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
                 <hr>
 
                 <div class="mt-3">
@@ -79,7 +92,7 @@
                                     {{ form.content | as_crispy_field }}
                                 </div>
 
-                                <div class="">
+                                <div>
                                     <button class="btn btn btn-dark" type="submit">Отправить</button>
                                 </div>
                                 
@@ -175,7 +188,9 @@ actionButtons.forEach(button => {
 
         const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}" === "true";
         if (isAuthenticated) {
-            handleVote(action);
+            // Change vote count immediately
+            updateVotesCountOnClick(action);
+            saveVotesCount(action);
             changeButtonState(button);
         } else {
             showRegistrationBanner();
@@ -184,7 +199,7 @@ actionButtons.forEach(button => {
     });
 });
 
-async function handleVote(action) {
+async function saveVotesCount(action) {
     try {
         const formData = new FormData();
         formData.append("question_id", "{{ question.pk }}");
@@ -202,28 +217,41 @@ async function handleVote(action) {
 
         const response = await fetch(url, options);
         const data = await response.json();
-
-        if (response.ok && data.status === "ok") {
-            updateVotesCount(data.votes_count);
-        } else {
-            handleError(data.message || ERROR_MESSAGES.unexpected);
-        }
     } catch (error) {
         handleError(ERROR_MESSAGES.unexpected);
     }
 }
 
-
-function updateVotesCount(count) {
-    if (count === null) {
-        count = 0;
-    }
+function updateVotesCountOnClick(action) {
     const votesCountElement = document.getElementById("questionVotesCount");
-    if (votesCountElement) {
-        votesCountElement.textContent = count;
-    } else {
-        handleError(ERROR_MESSAGES.missingElement);
+    let currentCount = parseInt(votesCountElement.textContent, 10);
+    const buttonUp = document.getElementById(BUTTON_IDS.buttonVoteUp);
+    const buttonDown = document.getElementById(BUTTON_IDS.buttonVoteDown);
+    
+    console.log("buttonUp checked:", buttonUp.checked);
+    console.log("buttonDown checked:", buttonDown.checked);
+
+    if (action === "voteUp") {
+        if (buttonDown.dataset.action == "deleteVote") {
+            currentCount += 2; 
+        } else {
+            currentCount += 1; 
+        }
+    } else if (action === "voteDown") {
+        if (buttonUp.dataset.action == "deleteVote") {
+            currentCount -= 2; 
+        } else {
+            currentCount -= 1; 
+        }
+    } else if (action === "deleteVote") {
+        if (buttonUp.dataset.action == "deleteVote") {
+            currentCount -= 1; 
+        } else if (buttonDown.dataset.action == "deleteVote") {
+            currentCount += 1; 
+        }
     }
+
+    votesCountElement.textContent = currentCount;
 }
 
 function handleError(message) {
@@ -256,6 +284,8 @@ function changeButtonState(button) {
             button.dataset.action = "voteDown";
         }
     }
+
+    console.log(button.checked)
 }
 
 function showRegistrationBanner() {
@@ -263,14 +293,10 @@ function showRegistrationBanner() {
     authModal.show();
 }
 
-function uncheckAllButtons(buttons) 
-{
+function uncheckAllButtons(buttons) {
     buttons.forEach(button => {
         button.checked = false;
     });
 }
-
-
 </script>
-
 {% endblock %}

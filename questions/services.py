@@ -4,6 +4,7 @@ from django.contrib.postgres.search import TrigramSimilarity
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.sites.models import Site
+from django.db.models import Count
 from .models import Question, Category, Answer, Tag 
 from users.models import User
 from users.services import UserService
@@ -32,20 +33,24 @@ class QuestionService:
     @staticmethod
     def get_published_questions_sorted_by_votes(count: int = None) -> QuerySet[Question]: 
         questions = Question.published.order_by('-votes_count')
-
-        if count:
-            questions = questions[:count]
-        return questions 
+        return questions if count == None else questions[:count]
     
     @staticmethod 
     def get_published_questions_for_category(category: Category, count: int = None) -> QuerySet[Question]: 
-        questions = Question.published.filter(category=category)
+        questions = Question.published.filter(category=category).order_by('-votes_count')
         return questions if count == None else questions[:count]
     
     @staticmethod 
     def get_published_questions_with_tag(tag: Tag, count: int = None) -> QuerySet[Question]: 
-        questions = Question.published.filter(tags=tag)
+        questions = Question.published.filter(tags=tag).order_by('-votes_count')
         return questions if count == None else questions[:count]
+    
+    @staticmethod 
+    def get_similar_questions(current_question: Question, count: int = 4) -> QuerySet[Question]: 
+        question_tags_ids = current_question.tags.values_list('id', flat=True)  
+        similar_questions = Question.published.filter(tags__in=question_tags_ids).exclude(id=current_question.id) 
+        similar_questions = similar_questions.annotate(same_tags=Count('tags')).order_by('-same_tags', '-created_at', 'votes_count')
+        return similar_questions[:count]
     
     @staticmethod 
     def get_published_question(year: int, month: int, day: int, question_slug: str) -> Question | None: 

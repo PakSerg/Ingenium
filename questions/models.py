@@ -2,6 +2,7 @@ from django.db import models
 from users.models import User
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils.timezone import localtime
 from unidecode import unidecode
 
 
@@ -77,8 +78,9 @@ class Question(models.Model):
         return f'{self.title} ({self.user.username})' 
     
     def get_absolute_url(self): 
+        local_created_at = localtime(self.created_at)  
         return reverse('questions:single_question',
-                        args=[self.created_at.year, self.created_at.month, self.created_at.day, self.slug])
+                       args=[local_created_at.year, local_created_at.month, local_created_at.day, self.slug])
      
 
 class Answer(models.Model): 

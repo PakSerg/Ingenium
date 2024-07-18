@@ -43,6 +43,9 @@ class SingleQuestionView(View):
 
     def get(self, request, year: int, month: int, day: int, question_slug: str): 
         question = QuestionService.get_published_question(year, month, day, question_slug)
+        similar_questions = QuestionService.get_similar_questions(question)
+        print(similar_questions)
+
         form = CreateAnswerForm()
 
         user_vote = None
@@ -51,6 +54,7 @@ class SingleQuestionView(View):
 
         context = {
             'question': question,
+            'similar_questions': similar_questions,
             'form': form, 
             'user_vote': user_vote
         } 
@@ -60,8 +64,8 @@ class SingleQuestionView(View):
     def post(self, request, year: int, month: int, day: int, question_slug: str): 
         user = request.user 
         question = QuestionService.get_published_question(year, month, day, question_slug) 
-        form = CreateAnswerForm(request.POST)
 
+        form = CreateAnswerForm(request.POST)
         if form.is_valid(): 
             answer_content = form.cleaned_data['content'] 
             AnswerService.create_answer(answer_content, user, question) 
