@@ -34,7 +34,7 @@
                 </a>
             </p>
 
-            {% if question.tags.all %}
+            {% if question.has_tags %}
                 <p class="my-0 small">
                     <b>
                         {% for tag in question.tags.all %}

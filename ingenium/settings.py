@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import enum
 
 load_dotenv()
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_celery_beat',
+    'debug_toolbar',
 
     'crispy_forms', 
     'crispy_bootstrap4',
@@ -58,6 +60,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 SITE_ID = 2
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -101,6 +104,16 @@ DATABASES = {
         'PORT': "5439" 
     }
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache', 
+        'LOCATION': 'redis://127.0.0.1:6390',
+    }
+}
+
+class CASHE_NAMES(enum.Enum): 
+    pass
 
 
 # Password validation
@@ -177,3 +190,8 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json' 
 CELERY_RESULT_serializer = 'json' 
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

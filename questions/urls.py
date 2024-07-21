@@ -12,5 +12,5 @@ urlpatterns = [
     path('search/', SearchView.as_view(), name='search'), 
     path('category/<slug:category_slug>/', CategoryView.as_view(), name='category'), 
     path('tag/<slug:tag_slug>/', TagView.as_view(), name='tag'),
-    path('get_tags/<int:category_id>', get_tags_view, name='get_tags')
+    path('get_tags/<int:category_id>', get_tags_by_category, name='get_tags')
 ]

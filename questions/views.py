@@ -16,8 +16,9 @@ class AllQuestionsView(View):
     template_name = 'questions/all_questions.html'
 
     def get(self, request): 
-        questions = QuestionService.get_published_questions_sorted_by_votes() 
-
+        questions = QuestionService.get_published_questions_sorted_by_votes().prefetch_related('tags').select_related('category')
+        for question in questions: 
+            question.has_tags = question.tags.exists()
         questions = get_paginated_collection(request, 
                                              collection=questions, 
                                              count_per_page=10)
@@ -32,8 +33,10 @@ class AllCategoriesView(TemplateView):
     template_name = 'questions/all_categories.html'
 
     def get_context_data(self):
-        all_categories = CategoryService.get_all_categories()
-        context = { 'categories': all_categories }
+        all_categories = CategoryService.get_all_categories().prefetch_related('tags')
+        for category in all_categories: 
+            category.has_tags = category.tags.exists()
+        context = {'categories': all_categories }
         return context
     
 
@@ -42,9 +45,9 @@ class SingleQuestionView(View):
     form_class = CreateAnswerForm
 
     def get(self, request, year: int, month: int, day: int, question_slug: str): 
-        question = QuestionService.get_published_question(year, month, day, question_slug)
+        from .models import Question
+        question: Question = QuestionService.get_published_question(year, month, day, question_slug)
         similar_questions = QuestionService.get_similar_questions(question)
-        print(similar_questions)
 
         form = CreateAnswerForm()
 
@@ -110,7 +113,7 @@ class CategoryView(View):
 
     def get(self, request, category_slug: str): 
         category = CategoryService.get_category_by_slug(category_slug)
-        questions = QuestionService.get_published_questions_for_category(category)
+        questions = QuestionService.get_published_questions_for_category(category).select_related('category')
 
         questions = get_paginated_collection(request, 
                                              collection=questions, 
@@ -128,7 +131,9 @@ class TagView(View):
 
     def get(self, request, tag_slug: str): 
         tag = TagService.get_tag_by_slug(tag_slug)
-        questions = QuestionService.get_published_questions_with_tag(tag)
+        questions = QuestionService.get_published_questions_with_tag(tag).prefetch_related('tags').select_related('category')
+        for question in questions: 
+            question.has_tags = question.tags.exists()
 
         questions = get_paginated_collection(request, collection=questions)
 
@@ -156,7 +161,7 @@ class SearchView(View):
             pass 
 
 
-def get_tags_view(request, category_id: int) -> JsonResponse:
+def get_tags_by_category(request, category_id: int) -> JsonResponse:
     tags = Tag.objects.filter(category_id=category_id).values('id', 'text')
     return JsonResponse(list(tags), safe=False) 
 

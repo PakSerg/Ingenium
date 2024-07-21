@@ -9,11 +9,12 @@ from questions.urls import AllQuestionsView
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
+    path('', include('django.contrib.auth.urls')),
+    path('__debug__/', include('debug_toolbar.urls')),
 
     path('users/', include('users.urls', namespace='users')),
     path('questions/', include('questions.urls', namespace='questions')), 
     path('votes/', include('votes.urls', namespace='votes')),
-    path('', include('django.contrib.auth.urls')),
 
     path('', AllQuestionsView.as_view()),  # Для перенаправления порта
 ]

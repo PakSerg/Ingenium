@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.sites.models import Site
 from django.db.models import Count
+from ingenium.settings import CASHE_NAMES
 from .models import Question, Category, Answer, Tag 
 from users.models import User
 from users.services import UserService
@@ -12,8 +13,15 @@ from users.services import UserService
 
 class QuestionService: 
     @staticmethod
-    def get_question_by_id(question_id: int) -> Question: 
-        return Question.objects.get(pk=question_id)
+    def get_published_question_by_id(question_id: int) -> Question: 
+        return Question.published.get(pk=question_id)
+    
+    @staticmethod 
+    def get_published_question(year: int, month: int, day: int, question_slug: str) -> Question | None: 
+        return Question.published.filter(created_at__year=year, 
+                                       created_at__month=month, 
+                                       created_at__day=day, 
+                                       slug=question_slug).select_related('user').prefetch_related('answers__user').first()
     
     @staticmethod 
     def create_and_publish_question(title: str, 
@@ -52,12 +60,6 @@ class QuestionService:
         similar_questions = similar_questions.annotate(same_tags=Count('tags')).order_by('-same_tags', '-created_at', 'votes_count')
         return similar_questions[:count]
     
-    @staticmethod 
-    def get_published_question(year: int, month: int, day: int, question_slug: str) -> Question | None: 
-        return Question.published.filter(created_at__year=year, 
-                                       created_at__month=month, 
-                                       created_at__day=day, 
-                                       slug=question_slug).first()
 
 
 class CategoryService: 
@@ -104,7 +106,7 @@ class NotificationService:
     @staticmethod 
     def send_new_answer_notification(recipient_user_id: int, question_id: int) -> None:
         user = UserService.get_user_by_id(recipient_user_id)
-        question = QuestionService.get_question_by_id(question_id)
+        question = QuestionService.get_published_question_by_id(question_id)
         current_site = Site.objects.get_current()
         context = {
             'domain': current_site.domain,
