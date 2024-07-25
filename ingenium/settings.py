@@ -112,9 +112,30 @@ CACHES = {
     }
 }
 
-class CASHE_NAMES(enum.Enum): 
-    pass
+class CacheKeys(): 
 
+    class Static(enum.Enum): 
+        ALL_CATEGORIES: str = 'cache:all_categories'
+        ALL_CATEGORIES_WITH_TAGS: str = 'cache:all_categories_with_tags'
+        ALL_QUESTIONS: str = 'cache:all_questions'
+
+    class Dynamic():
+        @staticmethod
+        def category(slug: str) -> str: 
+            return f'category:{slug}'
+        
+        @staticmethod
+        def questions_by_category(category_slug: str) -> str: 
+            return f'category:{category_slug}:questions'
+        
+        @staticmethod 
+        def single_question(year: int, month: int, day: int, question_slug: str) -> str: 
+            return f'question:{year}_{month}_{day}_{question_slug}'
+        
+        @staticmethod 
+        def similar_questions(year: int, month: int, day: int, question_slug: str) -> str: 
+            return f'question:{year}_{month}_{day}_{question_slug}'
+    
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

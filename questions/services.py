@@ -5,7 +5,6 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.sites.models import Site
 from django.db.models import Count
-from ingenium.settings import CASHE_NAMES
 from .models import Question, Category, Answer, Tag 
 from users.models import User
 from users.services import UserService
@@ -96,9 +95,13 @@ class SearchService:
 
 class AnswerService: 
     @staticmethod 
-    def create_answer(content: str, user: User, question: Question) -> Answer: 
+    def create_and_publish_answer(content: str, user: User, question: Question) -> Answer: 
         new_answer = Answer.objects.create(content=content, user=user, question=question)
         new_answer.save()
+
+        question.answers_count += 1
+        question.save()
+        
         return new_answer
     
 

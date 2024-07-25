@@ -5,24 +5,27 @@ from django.views.generic import TemplateView, FormView
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.core.cache import cache
+from ingenium.settings import CacheKeys
 from questions.tasks import send_new_answer_notification_task
 from .services import QuestionService, CategoryService, AnswerService, TagService, get_paginated_collection, SearchService
 from votes.services import VoteForQuestionService
 from .forms import CreateAnswerForm, CreateQuestionForm, SearchForm
-from .models import Tag
+from .models import Tag, Question
 
 
 class AllQuestionsView(View): 
     template_name = 'questions/all_questions.html'
 
     def get(self, request): 
-        questions = QuestionService.get_published_questions_sorted_by_votes().prefetch_related('tags').select_related('category')
+        questions = cache.get_or_set(CacheKeys.Static.ALL_QUESTIONS, 
+                                     lambda: QuestionService.get_published_questions_sorted_by_votes().prefetch_related('tags').select_related('category'), 
+                                     60)
         for question in questions: 
             question.has_tags = question.tags.exists()
         questions = get_paginated_collection(request, 
                                              collection=questions, 
                                              count_per_page=10)
-
         context = {
             'questions': questions,
         }
@@ -33,7 +36,9 @@ class AllCategoriesView(TemplateView):
     template_name = 'questions/all_categories.html'
 
     def get_context_data(self):
-        all_categories = CategoryService.get_all_categories().prefetch_related('tags')
+        all_categories = cache.get_or_set(CacheKeys.Static.ALL_CATEGORIES_WITH_TAGS, 
+                                          lambda: CategoryService.get_all_categories().prefetch_related('tags'), 
+                                          60 * 60 * 6)
         for category in all_categories: 
             category.has_tags = category.tags.exists()
         context = {'categories': all_categories }
@@ -45,8 +50,7 @@ class SingleQuestionView(View):
     form_class = CreateAnswerForm
 
     def get(self, request, year: int, month: int, day: int, question_slug: str): 
-        from .models import Question
-        question: Question = QuestionService.get_published_question(year, month, day, question_slug)
+        question = QuestionService.get_published_question(year, month, day, question_slug)
         similar_questions = QuestionService.get_similar_questions(question)
 
         form = CreateAnswerForm()
@@ -71,8 +75,8 @@ class SingleQuestionView(View):
         form = CreateAnswerForm(request.POST)
         if form.is_valid(): 
             answer_content = form.cleaned_data['content'] 
-            AnswerService.create_answer(answer_content, user, question) 
-            question.answers_count += 1
+            AnswerService.create_and_publish_answer(answer_content, user, question) 
+            
 
             if question.user_id != user.pk and question.answers_count < 20:
                 send_new_answer_notification_task.delay(question.user_id, question.pk)
@@ -103,6 +107,8 @@ class CreateQuestionView(FormView):
         tags = cd['tags']
         user = self.request.user
 
+        cache.delete(CacheKeys.Dynamic.questions_by_category(category.slug))
+
         QuestionService.create_and_publish_question(title, category, user, content, tags)
 
         return redirect('questions:all_questions')
@@ -112,13 +118,16 @@ class CategoryView(View):
     template_name = 'questions/questions_in_category.html' 
 
     def get(self, request, category_slug: str): 
-        category = CategoryService.get_category_by_slug(category_slug)
-        questions = QuestionService.get_published_questions_for_category(category).select_related('category')
-
+        cache.get
+        category = cache.get_or_set(CacheKeys.Dynamic.category(category_slug), 
+                                    lambda: CategoryService.get_category_by_slug(category_slug), 
+                                    60 * 60 * 6) 
+        questions = cache.get_or_set(CacheKeys.Dynamic.questions_by_category(category_slug), 
+                                     lambda: QuestionService.get_published_questions_for_category(category), 
+                                     60 * 10)
         questions = get_paginated_collection(request, 
                                              collection=questions, 
                                              count_per_page=10)
-
         context = {
             'questions': questions, 
             'category': category,

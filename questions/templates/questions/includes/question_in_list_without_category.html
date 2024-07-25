@@ -1,0 +1,49 @@
+<div class="d-flex mb-1 shadow-sm">
+
+    <div class="text-center pt-4 ms-4">
+        <div class="mb-2 text-muted">
+            <span class="d-block">{{ question.votes_count }}</span>
+            <small>голосов</small>
+        </div>
+        <div class="mb-2 text-muted">
+            <span class="d-block">{{ question.answers_count }}</span>
+            <small>ответов</small>
+        </div>
+    </div>
+
+    <div class="card py-1 px-4 border-0 flex-grow-1">
+        <div class="card-body">
+            <div class="mb-1">
+                <h5 class="h4 font-pt-serif">
+                    <a href="{{ question.get_absolute_url }}" class="text-dark text-decoration-none">
+                        {{ question.title }}
+                    </a>
+                </h5>
+            </div>
+
+            <div class="mb-1">
+                <p class="card-text font-noto-sans small">
+                    {{ question.content | truncatewords_html:20 }}
+                </p>
+            </div>
+
+            {% if question.has_tags %}
+                <p class="my-0 small">
+                    <b>
+                        {% for tag in question.tags.all %}
+                            <a href="{{ tag.get_absolute_url }}" class="font-pt-serif text-secondary me-2">{{ tag.text }}</a>
+                        {% endfor %}
+                    </b>
+                </p>
+            {% endif %}
+
+            <div class="mt-1">
+                <p class="card-text">
+                    <small>
+                        <i class="far fa-clock"></i> {{ question.created_at | date:"d.m.Y H:i" }}
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
