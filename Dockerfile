@@ -11,3 +11,5 @@ RUN apt-get update \
     && pip install psycopg2
 
 COPY . . 
+
+RUN chmod +x entrypoint.sh
