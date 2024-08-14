@@ -16,8 +16,8 @@ urlpatterns = [
     path('questions/', include('questions.urls', namespace='questions')), 
     path('votes/', include('votes.urls', namespace='votes')),
 
-    path('', AllQuestionsView.as_view()),  # Для перенаправления порта
-]
+    path('', AllQuestionsView.as_view()), 
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

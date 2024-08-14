@@ -100,15 +100,15 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB'),
         'USER': os.getenv('POSTGRES_USER'), 
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'), 
-        'HOST': "localhost", 
-        'PORT': "5439" 
+        'HOST': "db", 
+        'PORT': "5432" 
     }
 }
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache', 
-        'LOCATION': 'redis://127.0.0.1:6390',
+        'LOCATION': 'redis://redis:6379',
     }
 }
 
@@ -172,7 +172,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -191,17 +192,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'sergegnabri2005@gmail.com'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'sergegnabri2005@gmail.com'
+DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')
 
 
 # Redis 
-REDIS_HOST = '127.0.0.1' 
-REDIS_PORT = '6390' 
+REDIS_HOST = 'redis' 
+REDIS_PORT = '6379' 
 
 # Celery
 CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0' 
