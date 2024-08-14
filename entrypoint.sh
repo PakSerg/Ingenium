@@ -22,7 +22,7 @@ python manage.py loaddata questions/fixtures/category.json questions/fixtures/ta
 python manage.py collectstatic --noinput
 
 celery -A ingenium worker -l info -P eventlet &
-celery -A ingenium beat -l info &
+# celery -A ingenium beat -l info &
 celery -A ingenium flower -l info &
 gunicorn ingenium.wsgi:application --bind 0.0.0.0:8000 &
 
