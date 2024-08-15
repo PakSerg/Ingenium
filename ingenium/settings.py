@@ -69,6 +69,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
 ROOT_URLCONF = 'ingenium.urls'
 
 TEMPLATES = [
