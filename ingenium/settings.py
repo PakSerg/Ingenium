@@ -32,7 +32,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['http://*.ingenium.website']
+CSRF_TRUSTED_ORIGINS = ['https://*.ingenium.website']
 
 
 # Application definition
