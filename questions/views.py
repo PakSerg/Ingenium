@@ -11,7 +11,19 @@ from questions.tasks import send_new_answer_notification_task
 from .services import QuestionService, CategoryService, AnswerService, TagService, get_paginated_collection, SearchService
 from votes.services import VoteForQuestionService
 from .forms import CreateAnswerForm, CreateQuestionForm, SearchForm
-from .models import Tag, Question
+from .models import Tag
+
+
+class MainView(View): 
+    def get(self, request): 
+        if request.user.is_authenticated:
+            return redirect('questions:all_questions')
+        else: 
+            return redirect('landing')
+
+
+class LandingView(TemplateView): 
+    template_name = 'questions/landing.html'
 
 
 class AllQuestionsView(View): 

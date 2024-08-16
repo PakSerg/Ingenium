@@ -27,8 +27,8 @@
 <div class="wrapper">
     <nav class="navbar navbar-expand-xl bg-dark fixed-top" data-bs-theme="dark">
     <div class="container-fluid">
-        <a href="{% url 'questions:all_questions' %}"><img class="ms-5" src="{% static 'images/hollow_favicon.png' %}" style="width: 35px; height: 35px;">
-            <a href="{% url 'questions:all_questions' %}" class="navbar-brand fs-4 ms-3 me-5">Ingenium</a>
+        <a href="{% url 'main' %}"><img class="ms-5" src="{% static 'images/hollow_favicon.png' %}" style="width: 35px; height: 35px;">
+            <a href="{% url 'main' %}" class="navbar-brand fs-4 ms-3 me-5">Ingenium</a>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,21 +38,21 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item ms-1 me-1">
-                    <a class="nav-link" aria-current="page" href="{% url 'questions:create_question' %}">Задать свой вопрос</a>
-                </li>
-
-                <li class="nav-item ms-1 me-1">
-                    <a class="nav-link" aria-current="page" href="{% url 'questions:all_questions' %}">Все вопросы</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'questions:all_questions' %}">Вопросы</a>
                 </li>
 
                 <li class="nav-item ms-1 me-1">
                     <a class="nav-link" href="{% url 'questions:all_categories' %}">Категории</a>
                 </li>
 
+                <li class="nav-item ms-1 me-1">
+                    <a class="nav-link" aria-current="page" href="{% url 'questions:create_question' %}">Спросить</a>
+                </li>
+
                 {% if request.user.is_authenticated %}
                     <li class="nav-item dropdown ms-1 me-1">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ request.user.email }}
+                            Профиль
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'users:profile' %}">Мой профиль</a></li>
@@ -86,13 +86,11 @@
 
 
 
-    <div class=" mt-5">
+    <div class="mt-5">
         <footer class="mt-4 py-3 bg-dark" data-bs-theme="dark">
             <ul class="nav justify-content-center">
-                <li class="nav-item"><a href="#" class="nav-link px-3 text-body-secondary">О нас</a></li>
-                <li class="nav-item"><a href="https://t.me/escapeTheWood" class="nav-link px-3 text-body-secondary">Telegram</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-3 text-body-secondary">VK</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-3 text-body-secondary">FAQs</a></li>
+                <li class="nav-item"><a href="{% url 'landing' %}" class="nav-link px-3 text-body-secondary">О проекте</a></li>
+                <li class="nav-item"><a href="https://t.me/PakSergeiDev" class="nav-link px-3 text-body-secondary">Telegram</a></li>
             </ul>
         </footer>
     </div>

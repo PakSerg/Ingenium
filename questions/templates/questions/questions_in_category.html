@@ -17,7 +17,7 @@
             <div class="col">
 
                 <div class="mb-4">
-                    <p class="h2 font-pt-serif">{{ category.title }} </p> 
+                    <p class="h2 font-jost">{{ category.title }} </p> 
                     <div>
                         <p class="font-noto-sans mt-3">{{ category.description }}</p>
                     </div>
@@ -33,7 +33,7 @@
                         <p>Будьте первыми</p>
                     </div>
                     <div>
-                        <a href="#" class="btn btn-dark">Задать свой вопрос</a>
+                        <a href="{% url 'questions:create_question' %}" class="btn btn-dark">Задать свой вопрос</a>
                     </div>
                 </div>
                 {% endfor %}

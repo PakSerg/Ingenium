@@ -1,0 +1,71 @@
+{% block title %}
+Добро пожаловать на Ingenium
+{% endblock title %}
+
+{% block content %}
+<header class="bg-light text-dark py-5">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Ingenium — Платформа знаний и вопросов</h1>
+        <p class="lead">Задавайте вопросы, делитесь знаниями и находите ответы на самые важные для вас темы.</p>
+        <a href="{% url 'questions:create_question' %}" class="btn btn-primary btn-lg mt-3">Задать свой вопрос</a>
+    </div>
+</header>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 text-center">
+                <i class="fas fa-question-circle fa-3x mb-3 text-primary"></i>
+                <h3 class="h5">Задавайте вопросы</h3>
+                <p>Получите ответ на любой интересующий вас вопрос. Наша платформа охватывает множество тем и категорий.</p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="fas fa-lightbulb fa-3x mb-3 text-primary"></i>
+                <h3 class="h5">Делитесь знаниями</h3>
+                <p>Делитесь своим опытом и знаниями, помогая другим пользователям найти ответы на их вопросы.</p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="fas fa-tags fa-3x mb-3 text-primary"></i>
+                <h3 class="h5">Открывайте категории</h3>
+                <p>Исследуйте разнообразные категории и находите темы, которые вас интересуют больше всего.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-dark text-light py-5">
+    <div class="container text-center">
+        <h2 class="h3 fw-bold">Почему стоит выбрать Ingenium?</h2>
+        <p class="lead mb-4">Мы объединяем людей, чтобы они могли учиться и развиваться вместе.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <h4 class="h5">Множество категорий</h4>
+                <p>У нас вы найдете темы от технологий до искусства.</p>
+            </div>
+            <div class="col-md-4">
+                <h4 class="h5">Активное сообщество</h4>
+                <p>Наши пользователи активно задают и отвечают на вопросы, помогая друг другу.</p>
+            </div>
+            <div class="col-md-4">
+                <h4 class="h5">Простота и удобство</h4>
+                <p>Интуитивный интерфейс делает использование сайта легким и приятным.</p>
+            </div>
+        </div>
+        <a href="{% url 'questions:all_questions' %}" class="btn btn-outline-light btn-lg mt-4">Посмотреть вопросы</a>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2 class="h3 fw-bold">Присоединяйтесь к нам сегодня</h2>
+                <p>Зарегистрируйтесь и начните задавать свои вопросы или помогать другим.</p>
+                <a href="{% url 'users:register' %}" class="btn btn-primary btn-lg">Зарегистрироваться</a>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="{% static 'images/community.png' %}" alt="Community" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
